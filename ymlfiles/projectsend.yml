@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+
+## ProjectSend - Collaborative Markdown Note Editor
+
+  ## Suggested procedure to create your ProjectSend Database:
+  ## Change the <password>
+    # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
+    # CREATE DATABASE projectsend CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+    # GRANT ALL PRIVILEGES ON projectsend.* TO 'projectsend'@'projectsend.traefik_proxy' IDENTIFIED BY '<password>';
+    # FLUSH PRIVILEGES;
+    # exit
+
+  ## Start container and enter database information during "install" process
+    # Replace localhost with "mariadb:3306"
+
+  projectsend:
+    container_name: projectsend
+    image: linuxserver/projectsend
+    restart: always
+    networks:
+      - traefik_proxy
+#    ports:
+#      - "80:80"
+    volumes:
+      - $USERDIR/docker/projectsend/config:/config
+      - $USERDIR/docker/projectsend/data:/data
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+      - MAX_UPLOAD=5000
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.projectsend-rtr.entrypoints=https"
+      - "traefik.http.routers.projectsend-rtr.rule=Host(`projectsend.$DOMAINNAME`)"
+      - "traefik.http.routers.projectsend-rtr.tls=true"
+      - "traefik.http.routers.projectsend-rtr.tls.certresolver=dns-cloudflare"
+      ## Middlewares
+      - "traefik.http.routers.projectsend-rtr.middlewares=secure-chain@file"
+      ## HTTP Services
+      - "traefik.http.routers.projectsend-rtr.service=projectsend-svc"
+      - "traefik.http.services.projectsend-svc.loadbalancer.server.port=80"
+
+networks:
+  traefik_proxy:
+    external: true

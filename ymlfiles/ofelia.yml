@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+
+## Ofelia - Modern Job Scheduler (cron)
+  ofelia:
+    container_name: ofelia
+    image: mcuadros/ofelia
+    restart: always
+    networks:
+      - traefik_proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - $USERDIR/docker/ofelia/config.ini:/etc/ofelia/config.ini
+
+networks:
+  traefik_proxy:
+    external: true

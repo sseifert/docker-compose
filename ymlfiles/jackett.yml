@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+
+## Jackett – Torrent Proxy/RSS Generator
+  jackett:
+    container_name: jackett
+    image: linuxserver/jackett
+    restart: always
+    networks:
+      - traefik_proxy
+#    ports:
+#      - "9117:9117"
+    volumes:
+      - $USERDIR/dwnloads/sonarr:/downloads
+      - $USERDIR/docker/jackett:/config
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.jackett-rtr.entrypoints=https"
+      - "traefik.http.routers.jackett-rtr.rule=Host(`jackett.$DOMAINNAME`)"
+      - "traefik.http.routers.jackett-rtr.tls=true"
+      - "traefik.http.routers.jackett-rtr.tls.certresolver=dns-cloudflare"
+      ## Middlewares
+      - "traefik.http.routers.jackett-rtr.middlewares=secure-headers@file,rate-limit@file,jackett-auth"
+      - "traefik.http.middlewares.jackett-auth.basicauth.users=$HTPASSWD" # htpasswd should have single $'s escaped w backslash: \$
+      ## HTTP Services
+      - "traefik.http.routers.jackett-rtr.service=jackett-svc"
+      - "traefik.http.services.jackett-svc.loadbalancer.server.port=9117"
+
+networks:
+  traefik_proxy:
+    external: true

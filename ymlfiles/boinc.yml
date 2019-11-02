@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+
+## Still working on this one...
+
+## BOINC Client - Berkeley Open Infrastructure for Network Computing
+  boinc_client:
+    container_name: boinc_client
+    image: boinc/client
+    restart: always
+    networks:
+      traefik_proxy:
+        ipv4_address: 192.168.50.190
+#    ports:
+#      - "31416:31416"
+    volumes:
+      - $USERDIR/docker/boinc/client:/var/lib/boinc
+    environment:
+      - TZ=$TZ
+      - BOINC_GUI_RPC_PASSWORD=$MY_PASSWORD
+      - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc
+
+## BOINC Web Manager
+  boinc:
+    container_name: boinc
+    image: adamradocz/boinc-manager-web
+    restart: always
+    networks:
+      - traefik_proxy
+#    ports:
+#     - "80:80"
+    volumes:
+      - $USERDIR/docker/boinc/web:/app/BoincManager
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.boinc-rtr.entrypoints=https"
+      - "traefik.http.routers.boinc-rtr.rule=Host(`boinc.$DOMAINNAME`)"
+      - "traefik.http.routers.boinc-rtr.tls=true"
+      - "traefik.http.routers.boinc-rtr.tls.certresolver=dns-cloudflare"
+      ## Middlewares
+      - "traefik.http.routers.boinc-rtr.middlewares=secure-chain@file"
+      ## HTTP Services
+      - "traefik.http.routers.boinc-rtr.service=boinc-svc"
+      - "traefik.http.services.boinc-svc.loadbalancer.server.port=80"
+
+networks:
+  traefik_proxy:
+    external: true
