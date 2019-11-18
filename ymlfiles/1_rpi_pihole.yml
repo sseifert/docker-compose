@@ -56,7 +56,7 @@ services:
       - ~/docker/pihole/pihole.log:/var/log/pihole.log
     environment:
       - TZ=$TZ
-      - ServerIP=192.168.1.3 # (My/buildfiles/unbound Host IP)
+      - ServerIP=192.168.1.3 # My Docker Host IP)
       - IPv6=False
       - WEBPASSWORD=$PIHOLE_PASSWORD
       - DNS1=127.0.0.1
@@ -66,23 +66,20 @@ services:
 
   ## Setup folders and files
     # mkdir $USERDIR/docker/pihole/unbound
-    # sudo chown -R $USER:$USER $USERDIR/docker/pihole/unbound
     # docker run --rm --entrypoint cat mvance/unbound-rpi /opt/unbound/etc/unbound/a-records.conf > ${USERDIR}/docker/pihole/unbound/a-records.conf
   ## Start container
     # docker exec -it unbound unbound-anchor
   ## Stop container
-    # sudo chown -R $USER:$USER $USERDIR/docker/pihole/unbound
-    # rm $USERDIR/docker/pihole/unbound/var/root.key
-    # mv $USERDIR/docker/pihole/unbound/root.key $USERDIR/docker/pihole/unbound/var
+    # sudo rm $USERDIR/docker/pihole/unbound/var/root.key
+    # sudo mv $USERDIR/docker/pihole/unbound/root.key $USERDIR/docker/pihole/unbound/var
     # sudo wget https://www.internic.net/domain/named.root -O ~/docker/pihole/unbound/var/root.hints
 
-  ## Edit the unbound.conf file:
-  ## Add to the bottom of BASIC SETTINGS:
-    # root-hints: "/opt/unbound/etc/unbound/var/root.hints"
-    # do-ip6: no  ## If you don't want to use IPv6
-  ## Add this for Plex to fix the DNS rebinding problem:
-    # private-domain: plex.direct
-  ## Commnt out any DNS forwarders since we will recursively query the root servers
+  ## Edit the unbound.conf file, add to the bottom of BASIC SETTINGS:
+    ## For a recursive resolver (querying the root domains):
+      # root-hints: "/opt/unbound/etc/unbound/var/root.hints"
+      ## Commnt out everything in the DNS forwarding section at the bottom since we will recursively query the root servers instead
+    ## To fix Plex DNS rebinding:
+      # private-domain: plex.direct
 
   ## Test that it's working (pihole must be running)
     # docker exec -it pihole dig pi-hole.net @127.0.0.1 -p 53

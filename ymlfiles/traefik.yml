@@ -1,5 +1,5 @@
 # Need to start the traefik network before running:
-  # docker network create traefik_proxy
+  # docker network create --gateway 192.168.50.1 --subnet 192.168.50.0/24 traefik_proxy
 # Trail logs using (docker logs -f traefik). Change "traefik" to name of container you want to trail
 
 version: "3.7"

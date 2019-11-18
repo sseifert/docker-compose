@@ -27,10 +27,9 @@ services:
 
   boinc:
     container_name: boinc
-    image: boinc/client:latest
+    image: boinc/client:arm32v7
     restart: always
-    networks:
-      - traefik_proxy
+    network_mode: host
 #    ports:
 #      - "31416:31416"
     volumes:
@@ -39,37 +38,3 @@ services:
       - TZ=$TZ
       - BOINC_GUI_RPC_PASSWORD=$MY_PASSWORD
       - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc
-
-## BOINC Web Manager
-
-  ## Add your host:
-    # name: boinc
-    # IpAddress: boinc
-    # enter <password>
-
-  boinc-web:
-    container_name: boinc-web
-    image: adamradocz/boinc-manager-web
-    restart: always
-    networks:
-      - traefik_proxy
-#    ports:
-#     - "3380:80"
-    volumes:
-      - $USERDIR/docker/boinc/web:/app/BoincManager
-    labels:
-      - "traefik.enable=true"
-      ## HTTP Routers
-      - "traefik.http.routers.boinc-rtr.entrypoints=https"
-      - "traefik.http.routers.boinc-rtr.rule=Host(`boinc.$DOMAINNAME`)"
-      - "traefik.http.routers.boinc-rtr.tls=true"
-      - "traefik.http.routers.boinc-rtr.tls.certresolver=dns-cloudflare"
-      ## Middlewares
-      - "traefik.http.routers.boinc-rtr.middlewares=secure-chain@file"
-      ## HTTP Services
-      - "traefik.http.routers.boinc-rtr.service=boinc-svc"
-      - "traefik.http.services.boinc-svc.loadbalancer.server.port=80"
-
-networks:
-  traefik_proxy:
-    external: true

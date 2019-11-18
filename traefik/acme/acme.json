@@ -1,30 +1,37 @@
-#This is an example of an acme.json file. Traefik will automatically populate and manage this file.
-
 {
   "dns-cloudflare": {
     "Account": {
-      "Email": "",
+      "Email": "@gmail.com",
       "Registration": {
         "body": {
           "status": "valid",
           "contact": [
-            "mailto:"
+            "mailto:@gmail.com"
           ]
         },
-        "uri": "https://acme-v02.api.letsencrypt.org/acme/acct/69725765"
+        "uri": "https://acme-v02.api.letsencrypt.org/acme/acct/"
       },
-      "PrivateKey": "",
+      "PrivateKey": "
       "KeyType": "4096"
     },
     "Certificates": [
       {
         "domain": {
-          "main": "example.com",
+          "main": ""
+        },
+        "certificate": "
+        "key": "
+        "Store": "default"
+      },
+      {
+        "domain": {
+          "main": "
           "sans": [
-            "*.example.com"
+            "*
           ]
         },
-        "certificate": "<cert will appear here>",
+        "certificate": "
+        "key": "
         "Store": "default"
       }
     ]
