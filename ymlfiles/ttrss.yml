@@ -15,7 +15,7 @@ services:
   ttrss:
     container_name: ttrss
     image: linuxserver/tt-rss
-    restart: always
+    restart: unless-stopped
     networks:
       - traefik_proxy
 #    ports:

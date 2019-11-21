@@ -5,7 +5,7 @@ services:
   tautulli:
     container_name: tautulli
     image: linuxserver/tautulli
-    restart: always
+    restart: unless-stopped
     networks:
       - traefik_proxy
 #    ports:

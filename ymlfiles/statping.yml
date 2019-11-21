@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+
+## StatPing - Status Page & Monitoring Server
+  statping:
+    container_name: statping
+    image: hunterlong/statping
+    restart: unless-stopped
+    networks:
+      - traefik_proxy
+#    ports:
+#      - "4480:8080"
+    volumes:
+      - ${USERDIR}/docker/statping:/app
+    environment:
+      - DB_CONN=sqlite
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.statping-rtr.entrypoints=https"
+      - "traefik.http.routers.statping-rtr.rule=Host(`statping.$DOMAINNAME`)"
+      - "traefik.http.routers.statping-rtr.tls=true"
+      - "traefik.http.routers.statping-rtr.tls.certresolver=dns-cloudflare"
+      ## Middlewares
+      - "traefik.http.routers.statping-rtr.middlewares=secure-headers@file"
+      ## HTTP Services
+      - "traefik.http.routers.statping-rtr.service=statping-svc"
+      - "traefik.http.services.statping-svc.loadbalancer.server.port=8080"
+
+networks:
+  traefik_proxy:
+    external: true

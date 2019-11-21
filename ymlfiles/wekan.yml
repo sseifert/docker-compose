@@ -7,7 +7,7 @@ services:
   wekan:
     container_name: wekan
     image: wekanteam/wekan
-    restart: always
+    restart: unless-stopped
     networks:
       - traefik_proxy
 #    ports:

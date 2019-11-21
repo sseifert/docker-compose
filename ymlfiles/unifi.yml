@@ -11,7 +11,7 @@ services:
   unifi:
     container_name: unifi
     image: linuxserver/unifi-controller
-    restart: unless-stopped
+    restart: always
     networks:
       - traefik_proxy
     ports:

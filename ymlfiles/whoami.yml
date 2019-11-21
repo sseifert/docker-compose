@@ -5,6 +5,7 @@ services:
   whoami:
     container_name: whoami
     image: containous/whoami:v1.3.0
+    restart: unless-stopped
     networks:
       - traefik_proxy
     labels:

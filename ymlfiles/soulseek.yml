@@ -5,7 +5,7 @@ services:
   soulseek:
     container_name: soulseek
     image: realies/soulseek
-    restart: always
+    restart: unless-stopped
     networks:
       - traefik_proxy
 #    network_mode: "container:qbittorrent"
