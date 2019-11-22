@@ -41,9 +41,10 @@ services:
     image: linuxserver/mariadb
     restart: always
     networks:
-      - traefik_proxy
-#    ports:
-#      - "3306:3306"
+      traefik_proxy:
+        ipv4_address: 192.168.50.250
+    ports:
+      - "3306:3306"
     volumes:
       - $USERDIR/docker/mariadb/data:/config
       - /etc/timezone:/etc/timezone:ro
@@ -74,6 +75,8 @@ services:
     container_name: dbbackup
     image: dsteinkopf/backup-all-mysql
     restart: always
+    depends_on:
+      - mariadb
     networks:
       - traefik_proxy
     volumes:

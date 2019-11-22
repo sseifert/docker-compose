@@ -2,35 +2,20 @@ version: "3.7"
 services:
 
 ## Paste Bin
-
-  ## Suggested procedure to create your Stikked Database:
-  ## Change the <password>
-    # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
-    # CREATE DATABASE stikked CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
-    # GRANT ALL PRIVILEGES ON stikked.* TO 'stikked'@'stikked.traefik_proxy' IDENTIFIED BY '<password>';
-    # FLUSH PRIVILEGES;
-    # exit
-
   bin:
     container_name: bin
-    image: claudehohl/stikked
+    image: jgeusebroek/privatebin
     restart: always
     networks:
       - traefik_proxy
 #    ports:
 #     - "80:80"
+    volumes:
+      - $USERDIR/docker/bin/data:/privatebin/data
+      - $USERDIR/docker/bin/cfg:/privatebin/cfg
     environment:
-      - STIKKED_SITE_NAME=Stikked
-      - STIKKED_BASE_URL=http://bin.$DOMAINNAME
-      - STIKKED_DB_HOSTNAME=mariadb
-      - STIKKED_DB_DATABASE=bin
-      - STIKKED_DB_USERNAME=bin
-      - STIKKED_DB_PASSWORD=$MYSQL_PASSWORD
-      - STIKKED_DISALLOW_SEARCH_ENGINES=true
-#      - STIKKED_JS_EDITOR=codemirror
-#      - STIKKED_ENABLE_CAPTCHA="true"
-#      - STIKKED_RECAPTCHA_PUBLICKEY=$RECAPTCHA_PUBLICKEY
-#      - STIKKED_RECAPTCHA_PRIVATEKEY=$RECAPTCHA_PRIVATEKEY
+      - UID=$PUID
+      - GID=$PGID
     labels:
       - "traefik.enable=true"
       ## HTTP Routers

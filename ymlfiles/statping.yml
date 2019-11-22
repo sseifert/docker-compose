@@ -2,18 +2,37 @@ version: "3.7"
 services:
 
 ## StatPing - Status Page & Monitoring Server
+
+  ## Suggested way to create StatPing database using MariaDB
+    # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
+    # CREATE DATABASE statping CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+    # GRANT ALL PRIVILEGES ON statping.* TO 'statping'@'statping.traefik_proxy'IDENTIFIED BY '<password>';
+    # FLUSH PRIVILEGES;
+    # exit
+
   statping:
     container_name: statping
     image: hunterlong/statping
     restart: unless-stopped
+    depends_on:
+      - postgres
     networks:
       - traefik_proxy
+      - db
 #    ports:
 #      - "4480:8080"
     volumes:
       - ${USERDIR}/docker/statping:/app
     environment:
-      - DB_CONN=sqlite
+#      - VIRTUAL_HOST=localhost
+#      - VIRTUAL_PORT=8080
+      - DB_CONN=postgres
+      - DB_HOST=postgres
+      - DB_USER=statping
+      - DB_PASS=$MYSQL_PASSWORD
+      - DB_DATABASE=statping
+      - NAME=EC2 Example
+      - DESCRIPTION=This is a Statping Docker Compose instance
     labels:
       - "traefik.enable=true"
       ## HTTP Routers
@@ -27,6 +46,22 @@ services:
       - "traefik.http.routers.statping-rtr.service=statping-svc"
       - "traefik.http.services.statping-svc.loadbalancer.server.port=8080"
 
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    networks:
+      - db
+    volumes:
+      - ${USERDIR}/statup/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=$MYSQL_PASSWORD
+      - POSTGRES_USER=statping
+      - POSTGRES_DB=statping
+
+
 networks:
   traefik_proxy:
     external: true
+  db:
+    external: false

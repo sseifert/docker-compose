@@ -3,7 +3,7 @@ services:
 
 ## NextCloud – Your Own Cloud Storage
 
-  ## Suggested to create NextCloud database using MariaDB
+  ## Suggested way to create NextCloud database using MariaDB
     # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
     # CREATE DATABASE nextcloud CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
     # GRANT ALL PRIVILEGES ON nextcloud.* TO 'nextcloud'@'nextcloud.traefik_proxy'IDENTIFIED BY '<password>';
@@ -15,20 +15,8 @@ services:
     # Database name: your db name (nextcloud)
     # localhost: mariadb:3306
 
-  ## If you have header issues in the settings dashboard, fix by editing $USERDIR/docker/nextcloud/www/nextcloud/config/config.php
-    ## Add these lines within the config array:
-    # 'forwarded_for_headers' =>
-    # array (
-    #   0 => 'HTTP_X_FORWARDED_FOR',
-    # ),
-
   ## For Traefik v2 I had to add security headers to nginx > site-confs > default
-    # https://github.com/nextcloud/documentation/blob/master/admin_manual/installation/nginx.rst
-
-  ## If you have the "bigint" issue:
-    # docker exec -it nextcloud sh
-    # sudo -u abc php /config/www/nextcloud/occ db:convert-filecache-bigint
-    # exit
+    # add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
 
   ## If you have a Redis server you can connect to it in $USERDIR/docker/nextcloud/www/nextcloud/config/config.php: (Optional)
     ## Add the following lines after " 'memcache.local' => '\\OC\\Memcache\\APCu', "

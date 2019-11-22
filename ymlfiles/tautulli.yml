@@ -25,7 +25,7 @@ services:
       - "traefik.http.routers.tautulli-rtr.tls=true"
       - "traefik.http.routers.tautulli-rtr.tls.certresolver=dns-cloudflare"
       ## Middlewares
-      - "traefik.http.routers.tautulli-rtr.middlewares=secure-chain@file"
+      - "traefik.http.routers.tautulli-rtr.middlewares=secure-headers@file,rate-limit@file,basic-auth@file"
       ## HTTP Services
       - "traefik.http.routers.tautulli-rtr.service=tautulli-svc"
       - "traefik.http.services.tautulli-svc.loadbalancer.server.port=8181"

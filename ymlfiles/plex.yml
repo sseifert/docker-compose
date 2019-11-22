@@ -23,6 +23,7 @@ services:
       - /mnt/storage/movies:/MOVIES:ro
       - /mnt/storage/tv:/TV:ro
       - /mnt/storage/concerts:/CONCERTS:ro
+      - /mnt/storage/books/:/BOOKS:ro
       - $USERDIR/docker/plex:/config
     environment:
       - PUID=$PUID
