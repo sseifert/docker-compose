@@ -29,11 +29,13 @@ services:
     image: yourls
     restart: always
     networks:
-      - traefik_proxy
+      traefik_proxy:
+        ipv4_address: 192.168.50.248
 #    ports:
 #      - "80:80"
     volumes:
-      - $USERDIR/docker/yourls:/var/www/html # Create folder, then extract latest release from this link or any other theme: https://github.com/tomslominski/infinity-squared/releases/latest
+      - $USERDIR/docker/yourls/config:/var/www/html # Create folder, then extract latest release from this link or any other theme: https://github.com/tomslominski/infinity-squared/releases/latest
+      - $USERDIR/docker/yourls/page:/page
     environment:
       - YOURLS_SITE=https://$DOMAINNAME
       - YOURLS_DB_HOST=mariadb
