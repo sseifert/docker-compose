@@ -12,7 +12,8 @@ services:
     image: markusmcnugen/qbittorrentvpn
     restart: always
     networks:
-      - traefik_proxy
+      traefik_proxy:
+        ipv4_address: 192.168.50.247
     cap_add:
       - NET_ADMIN
     devices:
