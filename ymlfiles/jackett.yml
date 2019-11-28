@@ -4,7 +4,7 @@ services:
 ## Jackett – Torrent Proxy/RSS Generator
   jackett:
     container_name: jackett
-    image: linuxserver/jackett
+    image: linuxserver/jackett:latest
     restart: always
     networks:
       traefik_proxy:

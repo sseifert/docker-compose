@@ -4,7 +4,7 @@ services:
 ## Emby Media Server
   emby:
     container_name: emby
-    image: emby/embyserver
+    image: emby/embyserver:latest
     restart: always
     devices:
       - /dev/dri:/dev/dri

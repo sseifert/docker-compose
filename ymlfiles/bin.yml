@@ -14,6 +14,7 @@ services:
     restart: always
     networks:
       - traefik_proxy
+      - mariadb
 #    ports:
 #     - "80:80"
     volumes:
@@ -37,4 +38,6 @@ services:
 
 networks:
   traefik_proxy:
+    external: true
+  mariadb:
     external: true

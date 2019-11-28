@@ -61,6 +61,7 @@ services:
       - "traefik.http.middlewares.plex-headers.headers.referrerpolicy=same-origin"
       - "traefik.http.middlewares.plex-headers.headers.featurepolicy=camera 'none'; geolocation 'none'; microphone 'none'; payment 'none'; usb 'none'; vr 'none';"
       - "traefik.http.middlewares.plex-headers.headers.customresponseheaders.X-Robots-Tag=none,noarchive,nosnippet,notranslate,noimageindex,"
+#      - "traefik.http.middlewares.plex-headers.headers.customframeoptionsvalue=allow-from https:$DOMAINNAME" # This option overrides FrameDeny
       ## HTTP Services
       - "traefik.http.routers.plex-rtr.service=plex-svc"
       - "traefik.http.services.plex-svc.loadbalancer.server.port=32400"

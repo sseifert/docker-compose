@@ -4,7 +4,7 @@ services:
 ## Ombi – Media Request App
   ombi:
     container_name: ombi
-    image: linuxserver/ombi
+    image: linuxserver/ombi:latest
     restart: unless-stopped
     networks:
       - traefik_proxy

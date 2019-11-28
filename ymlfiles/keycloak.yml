@@ -62,7 +62,7 @@ services:
   ## Change the <password>
     # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
     # CREATE DATABASE keycloak CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
-    # GRANT ALL PRIVILEGES ON keycloak.* TO 'keycloak'@'keycloak.traefik_proxy' IDENTIFIED BY '<password>';
+    # GRANT ALL PRIVILEGES ON keycloak.* TO 'keycloak'@'keycloak.mariadb' IDENTIFIED BY '<password>';
     # FLUSH PRIVILEGES;
     # exit
 
@@ -77,6 +77,7 @@ services:
       - traefik
     networks:
       - traefik_proxy
+      - mariadb
 #    ports:
 #      - "8080:8080"
     volumes:
@@ -110,4 +111,6 @@ services:
 
 networks:
   traefik_proxy:
+    external: true
+  mariadb:
     external: true

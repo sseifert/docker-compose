@@ -4,7 +4,7 @@ services:
 ## Radarr – Movie Download and Management
   radarr:
     container_name: radarr
-    image: linuxserver/radarr
+    image: linuxserver/radarr:latest
     restart: always
     networks:
       - traefik_proxy

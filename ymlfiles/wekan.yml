@@ -6,7 +6,7 @@ services:
 ## Wekan - Open Source Kanban Board
   wekan:
     container_name: wekan
-    image: wekanteam/wekan
+    image: wekanteam/wekan:latest
     restart: unless-stopped
     networks:
       - traefik_proxy

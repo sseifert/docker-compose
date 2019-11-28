@@ -7,7 +7,7 @@ services:
   ## Change the <password>
     # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
     # CREATE DATABASE bin CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
-    # GRANT ALL PRIVILEGES ON bin.* TO 'bin'@'bin.traefik_proxy' IDENTIFIED BY '<password>';
+    # GRANT ALL PRIVILEGES ON bin.* TO 'bin'@'bin.mariadb' IDENTIFIED BY '<password>';
     # FLUSH PRIVILEGES;
     # exit
 
@@ -17,6 +17,7 @@ services:
     restart: unless-stopped
     networks:
       - traefik_proxy
+      - mariadb
 #    ports:
 #     - "80:80"
     environment:
@@ -49,4 +50,6 @@ services:
 
 networks:
   traefik_proxy:
+    external: true
+  mariadb:
     external: true

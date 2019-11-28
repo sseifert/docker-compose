@@ -7,16 +7,17 @@ services:
   ## Change the <password>
     # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
     # CREATE DATABASE codimd CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
-    # GRANT ALL PRIVILEGES ON codimd.* TO 'codimd'@'codimd.traefik_proxy' IDENTIFIED BY '<password>';
+    # GRANT ALL PRIVILEGES ON codimd.* TO 'codimd'@'codimd.mariadb' IDENTIFIED BY '<password>';
     # FLUSH PRIVILEGES;
     # exit
 
   codimd:
     container_name: codimd
-    image: linuxserver/codimd
+    image: linuxserver/codimd:latest
     restart: always
     networks:
       - traefik_proxy
+      - mariadb
 #    ports:
 #      - "3000:3000"
     volumes:
@@ -61,4 +62,6 @@ services:
 
 networks:
   traefik_proxy:
+    external: true
+  mariadb:
     external: true

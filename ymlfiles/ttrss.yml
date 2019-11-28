@@ -7,17 +7,18 @@ services:
   ## Change the <password>
     # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
     # CREATE DATABASE ttrss CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
-    # GRANT ALL PRIVILEGES ON ttrss.* TO 'ttrss'@'ttrss.traefik_proxy' IDENTIFIED BY '<password>';
+    # GRANT ALL PRIVILEGES ON ttrss.* TO 'ttrss'@'ttrss.mariadb' IDENTIFIED BY '<password>';
     # FLUSH PRIVILEGES;
     # exit
 
   # Login: admin / password
   ttrss:
     container_name: ttrss
-    image: linuxserver/tt-rss
+    image: linuxserver/tt-rss:latest
     restart: unless-stopped
     networks:
       - traefik_proxy
+      - mariadb
 #    ports:
 #      - "780:80"
 #      - "7443:443"
@@ -42,4 +43,6 @@ services:
 
 networks:
   traefik_proxy:
+    external: true
+  mariadb:
     external: true

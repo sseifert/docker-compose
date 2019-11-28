@@ -4,7 +4,7 @@ services:
 ## Portainer - WebUI for Containers
   portainer:
     container_name: portainer
-    image: portainer/portainer
+    image: portainer/portainer:latest
     restart: always
     command: -H unix:///var/run/docker.sock
     networks:
@@ -12,7 +12,7 @@ services:
 #    ports:
 #      - "9000:9000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - portainer_data:/data # Change to local directory if you want to save/transfer config locally
     environment:
       - TZ=$TZ

@@ -4,7 +4,7 @@ services:
 ## JDownloader – Download Manager
   jdownloader:
     container_name: jdownloader
-    image: jlesage/jdownloader-2
+    image: jlesage/jdownloader-2:latest
     restart: always
     networks:
       - traefik_proxy

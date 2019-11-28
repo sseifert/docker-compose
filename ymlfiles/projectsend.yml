@@ -7,7 +7,7 @@ services:
   ## Change the <password>
     # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
     # CREATE DATABASE projectsend CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
-    # GRANT ALL PRIVILEGES ON projectsend.* TO 'projectsend'@'projectsend.traefik_proxy' IDENTIFIED BY '<password>';
+    # GRANT ALL PRIVILEGES ON projectsend.* TO 'projectsend'@'projectsend.mariadb' IDENTIFIED BY '<password>';
     # FLUSH PRIVILEGES;
     # exit
 
@@ -16,10 +16,11 @@ services:
 
   projectsend:
     container_name: projectsend
-    image: linuxserver/projectsend
+    image: linuxserver/projectsend:latest
     restart: always
     networks:
       - traefik_proxy
+      - mariadb
 #    ports:
 #      - "9980:80"
     volumes:
@@ -45,4 +46,6 @@ services:
 
 networks:
   traefik_proxy:
+    external: true
+  mariadb:
     external: true

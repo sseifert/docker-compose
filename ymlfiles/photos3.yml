@@ -7,7 +7,7 @@ services:
   ## Change the <password>
     # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
     # CREATE DATABASE piwigo CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
-    # GRANT ALL PRIVILEGES ON piwigo.* TO 'piwigo'@'piwigo.traefik_proxy' IDENTIFIED BY '<password>';
+    # GRANT ALL PRIVILEGES ON piwigo.* TO 'piwigo'@'piwigo.mariadb' IDENTIFIED BY '<password>';
     # FLUSH PRIVILEGES;
     # exit
 
@@ -17,6 +17,7 @@ services:
     restart: always
     networks:
       - traefik_proxy
+      - mariadb
 #    ports:
 #     - "80:80"
     volumes:
@@ -41,4 +42,6 @@ services:
 
 networks:
   traefik_proxy:
+    external: true
+  mariadb:
     external: true

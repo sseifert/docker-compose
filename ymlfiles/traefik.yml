@@ -77,6 +77,8 @@ services:
       - "traefik.http.routers.traefik-rtr.tls.certresolver=dns-cloudflare"
       - "traefik.http.routers.traefik-rtr.tls.domains[0].main=$DOMAINNAME"
       - "traefik.http.routers.traefik-rtr.tls.domains[0].sans=*.$DOMAINNAME"
+#      - "traefik.http.routers.traefik-rtr.tls.domains[1].main=$DOMAIN"
+#      - "traefik.http.routers.traefik-rtr.tls.domains[1].sans=*.$DOMAIN"
       ## Middlewares
       - "traefik.http.routers.traefik-rtr.middlewares=traefik-headers,rate-limit@file,oauth@file"
       - "traefik.http.middlewares.traefik-headers.headers.accesscontrolallowmethods=GET, OPTIONS, PUT"

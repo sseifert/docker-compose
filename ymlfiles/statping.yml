@@ -10,7 +10,7 @@ services:
       - postgres
     networks:
       - traefik_proxy
-      - db
+      - postgres
 #    ports:
 #      - "4480:8080"
     volumes:
@@ -39,7 +39,7 @@ services:
     image: postgres
     restart: always
     networks:
-      - db
+      - postgres
     volumes:
       - ${USERDIR}/docker/statping/postgres:/var/lib/postgresql/data
     environment:
@@ -51,5 +51,5 @@ services:
 networks:
   traefik_proxy:
     external: true
-  db:
+  postgres:
     external: false
