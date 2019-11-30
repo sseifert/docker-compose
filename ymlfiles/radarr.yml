@@ -11,13 +11,13 @@ services:
 #    ports:
 #      - "7878:7878"
     volumes:
-      - ${USERDIR}/dwnloads:/downloads
+      - $USERDIR/docker/radarr:/config
+      - $USERDIR/dwnloads:/downloads
       - /mnt/storage/movies:/movies
-      - ${USERDIR}/docker/radarr:/config
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
     labels:
       - "traefik.enable=true"
       ## HTTP Routers

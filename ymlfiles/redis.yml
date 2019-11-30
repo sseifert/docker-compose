@@ -43,7 +43,7 @@ services:
 
   redis:
     container_name: redis
-    image: redis
+    image: redis:latest
     restart: always
     entrypoint: redis-server --appendonly yes
     networks:
@@ -60,7 +60,7 @@ services:
 ## Redis Commander - Redis Management Tool
   rediscommander:
     container_name: rediscommander
-    image: rediscommander/redis-commander
+    image: rediscommander/redis-commander:latest
     restart: always
     depends_on:
       - redis

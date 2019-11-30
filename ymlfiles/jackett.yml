@@ -8,7 +8,7 @@ services:
     restart: always
     networks:
       traefik_proxy:
-        ipv4_address: 192.168.50.249
+        ipv4_address: 192.168.50.249 # Use this IP to connect to sonarr/radarr/lidarr: http://192.168.50.249:9117/...
     ports:
       - "9117:9117"
     volumes:

@@ -22,6 +22,8 @@ services:
       # character_set_server=utf8mb4
       # collation_server=utf8mb4_unicode_ci
       # innodb_file_format=Barracuda
+      # innodb_large_prefix=ON
+      # innodb_default_row_format=DYNAMIC
     # Start container
   ## Some resources for why these commands are chosen:
   ## utf8mb4 is the most universal and up to date character set allowing for emojis among other benefits

@@ -14,7 +14,7 @@ services:
 
   airsonic:
     container_name: airsonic
-    image: linuxserver/airsonic
+    image: linuxserver/airsonic:latest
     restart: always
     networks:
       - traefik_proxy

@@ -9,3 +9,5 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - $USERDIR/docker/ofelia/config.ini:/etc/ofelia/config.ini
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro

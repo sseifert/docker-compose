@@ -4,20 +4,20 @@ services:
 ## Sonarr – TV Show Download and Management
   sonarr:
     container_name: sonarr
-    image: linuxserver/sonarr
+    image: linuxserver/sonarr:latest
     restart: unless-stopped
     networks:
       - traefik_proxy
 #    ports:
 #      - "8989:8989"
     volumes:
-      - ${USERDIR}/dwnloads:/downloads
+      - $USERDIR/docker/sonarr:/config
+      - $USERDIR/dwnloads:/downloads
       - /mnt/storage/tv:/tv
-      - ${USERDIR}/docker/sonarr:/config
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
     labels:
       - "traefik.enable=true"
       ## HTTP Routers
