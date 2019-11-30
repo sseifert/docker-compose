@@ -2,6 +2,10 @@ version: "3.7"
 services:
 
 ## JDownloader – Download Manager
+
+  ## Dark Theme!
+    # https://github.com/Vinylwalk3r/Jdownloader-2-Dark-Theme
+
   jdownloader:
     container_name: jdownloader
     image: jlesage/jdownloader-2:latest
