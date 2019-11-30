@@ -4,7 +4,7 @@ services:
 ## LogRotate - Log File Crawler
   logrotate:
     container_name: logrotate
-    image: blacklabelops/logrotate
+    image: blacklabelops/logrotate:latest
     restart: always
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers

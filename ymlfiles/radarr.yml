@@ -7,7 +7,8 @@ services:
     image: linuxserver/radarr:latest
     restart: always
     networks:
-      - traefik_proxy
+      traefik_proxy:
+        ipv4_address: 192.168.50.245
 #    ports:
 #      - "7878:7878"
     volumes:

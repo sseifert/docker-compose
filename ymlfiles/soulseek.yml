@@ -4,7 +4,7 @@ services:
 ## Soulseek - P2P Media Service
   soulseek:
     container_name: soulseek
-    image: realies/soulseek
+    image: realies/soulseek:latest
     restart: unless-stopped
     networks:
       - traefik_proxy
@@ -18,7 +18,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     environment:
-      - resolution=1280x720
+      - resolution=1600x720
     labels:
       - "traefik.enable=true"
       ## HTTP Routers

@@ -20,11 +20,12 @@ services:
       - "5353:5353/udp"
       - "1900:1900/udp"
     volumes:
+      - $USERDIR/docker/plex:/config
       - /mnt/storage/movies:/MOVIES:ro
       - /mnt/storage/tv:/TV:ro
       - /mnt/storage/concerts:/CONCERTS:ro
-      - /mnt/storage/books/:/BOOKS:ro
-      - $USERDIR/docker/plex:/config
+      - /mnt/storage/music:/MUSIC:ro
+      - /mnt/storage/books:/BOOKS:ro
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -61,7 +62,6 @@ services:
       - "traefik.http.middlewares.plex-headers.headers.referrerpolicy=same-origin"
       - "traefik.http.middlewares.plex-headers.headers.featurepolicy=camera 'none'; geolocation 'none'; microphone 'none'; payment 'none'; usb 'none'; vr 'none';"
       - "traefik.http.middlewares.plex-headers.headers.customresponseheaders.X-Robots-Tag=none,noarchive,nosnippet,notranslate,noimageindex,"
-#      - "traefik.http.middlewares.plex-headers.headers.customframeoptionsvalue=allow-from https:$DOMAINNAME" # This option overrides FrameDeny
       ## HTTP Services
       - "traefik.http.routers.plex-rtr.service=plex-svc"
       - "traefik.http.services.plex-svc.loadbalancer.server.port=32400"

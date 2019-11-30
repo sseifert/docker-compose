@@ -1,10 +1,10 @@
-version: "3.7"
+:latestversion: "3.7"
 services:
 
 ## Simple Directory Index / File Browser
   index:
     container_name: index
-    image: mohamnag/nginx-file-browser
+    image: mohamnag/nginx-file-browser:latest
     restart: always
     networks:
       - traefik_proxy

@@ -6,7 +6,7 @@ services:
 ## Rsync Server
   rsync:
     container_name: rsync
-    image: axiom/rsync-server
+    image: axiom/rsync-server:latest
     restart: always
     networks:
       - traefik_proxy

@@ -4,7 +4,7 @@ services:
 ## Ouroboros
   ouroboros:
     container_name: ouroboros
-    image: pyouroboros/ouroboros
+    image: pyouroboros/ouroboros:latest
     restart: always
     networks:
       - pi_net

@@ -13,7 +13,7 @@ services:
 
   photos:
     container_name: photos
-    image: linuxserver/lychee
+    image: linuxserver/lychee:latest
     restart: always
     networks:
       - traefik_proxy

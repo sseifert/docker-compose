@@ -4,7 +4,7 @@ services:
 ## OpenVPN - VPN Service
   openvpn:
     container_name: openvpn
-    image: darathor/openvpn
+    image: darathor/openvpn:latest
     restart: always
     cap_add:
       - NET_ADMIN

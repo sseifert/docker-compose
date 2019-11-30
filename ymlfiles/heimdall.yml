@@ -4,7 +4,7 @@ services:
 ## Heimdall - Homepage
   heimdall:
     container_name: heimdall
-    image: linuxserver/heimdall
+    image: linuxserver/heimdall:latest
     restart: always
     networks:
       - traefik_proxy

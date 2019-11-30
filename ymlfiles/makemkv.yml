@@ -4,7 +4,7 @@ services:
 ## MakeMKV - Video Converter
   makemkv:
     container_name: makemkv
-    image: jlesage/makemkv
+    image: jlesage/makemkv:latest
     restart: always
     networks:
       - traefik_proxy
@@ -20,7 +20,7 @@ services:
       - GROUP_ID=$PGID
       - TZ=$TZ
       - UMASK=002
-      - DISPLAY_WIDTH=1280
+      - DISPLAY_WIDTH=1600
       - DISPLAY_HEIGHT=768
     labels:
       - "traefik.enable=true"

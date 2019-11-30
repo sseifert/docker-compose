@@ -11,7 +11,7 @@ services:
 
   oauth:
     container_name: oauth
-    image: thomseddon/traefik-forward-auth
+    image: thomseddon/traefik-forward-auth:latest
     restart: always
     networks:
       - traefik_proxy

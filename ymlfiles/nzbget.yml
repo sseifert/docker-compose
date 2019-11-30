@@ -11,12 +11,13 @@ services:
     image: linuxserver/nzbget:latest
     restart: unless-stopped
     networks:
-      - traefik_proxy
+      traefik_proxy:
+        ipv4_address: 192.168.50.241
 #    ports:
 #      - "6789:6789"
     volumes:
       - $USERDIR/docker/nzbget:/config
-      - $USERDIR/dwnloads/nzbget:/downloads
+      - $USERDIR/dwnloads:/downloads
     environment:
       - PUID=$PUID
       - PGID=$PGID

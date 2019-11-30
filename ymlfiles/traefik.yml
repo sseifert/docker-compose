@@ -54,7 +54,10 @@ services:
         published: 443
         protocol: tcp
         mode: host
-      - "8080:8080"
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
     volumes:
       - $TRAEFIK2DIR/traefik/rules:/rules # file provider directory
       - /var/run/docker.sock:/var/run/docker.sock:ro

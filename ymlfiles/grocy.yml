@@ -9,7 +9,7 @@ services:
 
   grocy:
     container_name: grocy
-    image: linuxserver/grocy
+    image: linuxserver/grocy:latest
     restart: always
     networks:
       - traefik_proxy

@@ -6,7 +6,7 @@ services:
 ## Diskover - Disk Space Usage Manager / Search Tool
   diskover:
     container_name: diskover
-    image: linuxserver/diskover
+    image: linuxserver/diskover:latest
     restart: always
     mem_limit: 4096m
     depends_on:

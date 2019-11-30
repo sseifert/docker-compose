@@ -4,7 +4,7 @@ services:
 ## Autoindex - Simple Directory Index
   autoindex:
     container_name: autoindex
-    image: chauffer/nginx-autoindex
+    image: chauffer/nginx-autoindex:latest
     restart: always
     networks:
       - traefik_proxy

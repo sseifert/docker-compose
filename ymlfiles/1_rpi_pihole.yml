@@ -28,7 +28,7 @@ services:
 ## Pihole - Ad-blocker
   pihole:
     container_name: pihole
-    image: pihole/pihole
+    image: pihole/pihole:latest
     restart: unless-stopped
     depends_on:
       - unbound
@@ -92,7 +92,7 @@ services:
 
   unbound:
     container_name: unbound
-    image: mvance/unbound-rpi
+    image: mvance/unbound-rpi:latest
     restart: always
     networks:
       pi_net:

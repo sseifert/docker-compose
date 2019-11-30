@@ -8,7 +8,7 @@ services:
 
   photos:
     container_name: photos
-    image: trebonius0/photato
+    image: trebonius0/photato:latest
     restart: always
     networks:
       - traefik_proxy

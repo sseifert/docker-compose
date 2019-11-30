@@ -5,7 +5,7 @@ services:
 
   syncthing:
     container_name: syncthing
-    image: dargmuesli/syncthing
+    image: dargmuesli/syncthing:latest
     restart: always
     networks:
       - traefik_proxy

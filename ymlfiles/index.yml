@@ -4,7 +4,7 @@ services:
 ## Simple Directory Index / File Browser
   index:
     container_name: index
-    image: digitalmobil/ifm
+    image: digitalmobil/ifm:latest
     restart: always
     networks:
       - traefik_proxy

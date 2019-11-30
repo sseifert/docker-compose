@@ -13,7 +13,7 @@ services:
 
   piwigo:
     container_name: piwigo
-    image: linuxserver/piwigo
+    image: linuxserver/piwigo:latest
     restart: always
     networks:
       - traefik_proxy

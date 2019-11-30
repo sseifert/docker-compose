@@ -1,4 +1,4 @@
-version: "3.7"
+:latestversion: "3.7"
 services:
 
 ## Lychee - Photo/Image Server
@@ -13,7 +13,7 @@ services:
 
   photos:
     container_name: photos
-    image: lsiocommunity/pixapop
+    image: lsiocommunity/pixapop:latest
     restart: always
     networks:
       - traefik_proxy

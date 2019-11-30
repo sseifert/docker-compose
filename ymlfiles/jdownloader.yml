@@ -13,16 +13,16 @@ services:
 #      - "5900:5900"
 #      - "3129:3129"
     volumes:
-      - $USERDIR/dwnloads/jdown:/output
+      - $USERDIR/docker/jdownloader:/config
+      - $USERDIR/dwnloads/:/downloads
       - /mnt/storage/music/music:/music
 #      - /mnt/storage:/mnt/storage
-      - $USERDIR/docker/jdownloader:/config
     environment:
       - USER_ID=$PUID
       - GROUP_ID=$PGID
       - TZ=$TZ
       - UMASK_SET=002
-      - DISPLAY_WIDTH=1280
+      - DISPLAY_WIDTH=1600
       - DISPLAY_HEIGHT=768
       - KEEP_APP_RUNNING=1
 #      - VNC_PASSWORD=<a password> # Optional

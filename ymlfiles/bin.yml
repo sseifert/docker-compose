@@ -10,7 +10,7 @@ services:
 
   bin:
     container_name: bin
-    image: jgeusebroek/privatebin
+    image: jgeusebroek/privatebin:latest
     restart: always
     networks:
       - traefik_proxy

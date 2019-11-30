@@ -45,7 +45,7 @@ services:
 ## Pihole - Ad-blocker
   pihole:
     container_name: pihole
-    image: pihole/pihole
+    image: pihole/pihole:latest
     restart: always
     depends_on:
       - unbound
@@ -125,7 +125,7 @@ services:
 
   unbound:
     container_name: unbound
-    image: mvance/unbound
+    image: mvance/unbound:latest
     restart: always
     networks:
       traefik_proxy:

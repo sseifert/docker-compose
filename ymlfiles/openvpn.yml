@@ -47,7 +47,7 @@ services:
 
   openvpn:
     container_name: openvpn
-    image: kylemanna/openvpn
+    image: kylemanna/openvpn:latest
     restart: always
     cap_add:
       - NET_ADMIN

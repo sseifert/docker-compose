@@ -4,7 +4,7 @@ services:
 ## Paste Bin
   bin:
     container_name: bin
-    image: rlister/hastebin
+    image: rlister/hastebin:latest
     restart: always
     networks:
       - traefik_proxy

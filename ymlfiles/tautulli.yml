@@ -4,10 +4,11 @@ services:
 ## Tautulli – Monitoring Plex Usage
   tautulli:
     container_name: tautulli
-    image: linuxserver/tautulli
+    image: linuxserver/tautulli:latest
     restart: unless-stopped
     networks:
-      - traefik_proxy
+      traefik_proxy:
+        ipv4_address: 192.168.50.243
 #    ports:
 #      - "8181:8181"
     volumes:

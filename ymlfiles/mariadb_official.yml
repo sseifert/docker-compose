@@ -63,7 +63,7 @@ services:
   phpmyadmin:
     hostname: phpmyadmin
     container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
     restart: always
     depends_on:
       - mariadb

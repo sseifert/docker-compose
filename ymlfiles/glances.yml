@@ -4,7 +4,7 @@ services:
 ## Glances - Container and System Monitor
   glances:
     container_name: glances
-    image: nicolargo/glances
+    image: nicolargo/glances:latest
     pid: host
     restart: unless-stopped
     networks:

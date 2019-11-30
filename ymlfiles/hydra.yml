@@ -5,7 +5,7 @@ services:
 
   hydra:
     container_name: hydra
-    image: linuxserver/hydra2
+    image: linuxserver/hydra2:latest
     restart: unless-stopped
     networks:
       - traefik_proxy
@@ -13,7 +13,7 @@ services:
 #      - "5076:5076"
     volumes:
       - $USERDIR/docker/hydra:/config
-      - $USERDIR/dwnloads/hydra:/downloads
+      - $USERDIR/dwnloads:/downloads
     environment:
       - PUID=$PUID
       - PGID=$PGID

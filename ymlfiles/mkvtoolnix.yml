@@ -4,7 +4,7 @@ services:
 ## mkvtoolnix – Video Editor
   mkvtoolnix:
     container_name: mkvtoolnix
-    image: jlesage/mkvtoolnix
+    image: jlesage/mkvtoolnix:latest
     restart: always
     networks:
       - traefik_proxy
@@ -21,7 +21,7 @@ services:
       - GROUP_ID=$PGID
       - TZ=$TZ
       - UMASK=002
-      - DISPLAY_WIDTH=1280
+      - DISPLAY_WIDTH=1600
       - DISPLAY_HEIGHT=768
     labels:
       - "traefik.enable=true"

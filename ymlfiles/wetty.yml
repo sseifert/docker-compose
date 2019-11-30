@@ -4,7 +4,7 @@ services:
 ## Wetty - SSH over the web
   wetty:
     container_name: wetty
-    image: svenihoney/wetty
+    image: svenihoney/wetty:latest
     restart: always
     networks:
       - traefik_proxy

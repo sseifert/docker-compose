@@ -8,7 +8,7 @@ services:
   # Other commands: https://www.fail2ban.org/wiki/index.php/Commands
   fail2ban:
     container_name: fail2ban
-    image: darathor/fail2ban
+    image: darathor/fail2ban:latest
     restart: always
     network_mode: host
     cap_add:

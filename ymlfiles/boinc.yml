@@ -49,7 +49,7 @@ services:
 
   boinc-web:
     container_name: boinc-web
-    image: adamradocz/boinc-manager-web
+    image: adamradocz/boinc-manager-web:latest
     restart: always
     networks:
       - traefik_proxy

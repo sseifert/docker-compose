@@ -13,7 +13,7 @@ services:
 
   bin:
     container_name: bin
-    image: claudehohl/stikked
+    image: claudehohl/stikked:latest
     restart: unless-stopped
     networks:
       - traefik_proxy

@@ -4,7 +4,7 @@ services:
 ## Photo/Image Server
   photos:
     container_name: photos
-    image: linuxserver/photoshow
+    image: linuxserver/photoshow:latest
     restart: always
     networks:
       - traefik_proxy

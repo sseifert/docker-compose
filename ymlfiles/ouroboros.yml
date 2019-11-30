@@ -6,7 +6,7 @@ services:
   # https://github.com/pyouroboros/ouroboros/wiki
   ouroboros:
     container_name: ouroboros
-    image: pyouroboros/ouroboros
+    image: pyouroboros/ouroboros:latest
     restart: always
     networks:
       - traefik_proxy
@@ -20,7 +20,7 @@ services:
 #      - RUN_ONCE=true # Default false
       - LOG_LEVEL=info
       - SELF_UPDATE=true
-      - IGNORE=mongo influxdb postgres mariadb
+#      - IGNORE=mongo influxdb postgres mariadb
       - NOTIFIERS=$SLACK_NOTIFY # Slack Webhook URL
 
 networks:

@@ -4,7 +4,7 @@ services:
 ## iperf3 - Network Latency Tool
   iperf:
     container_name: iperf
-    image: mlabbe/iperf3
+    image: mlabbe/iperf3:latest
     restart: unless-stopped
     networks:
       traefik_proxy:

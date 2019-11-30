@@ -10,7 +10,7 @@ services:
 
   unifi:
     container_name: unifi
-    image: linuxserver/unifi-controller
+    image: linuxserver/unifi-controller:latest
     restart: always
     networks:
       - traefik_proxy

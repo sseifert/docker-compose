@@ -4,7 +4,7 @@ services:
 ## Portainer - WebUI for Containers
   portainer:
     container_name: portainer
-    image: portainer/portainer
+    image: portainer/portainer:latest
     restart: always
     command: -H unix:///var/run/docker.sock
     networks:

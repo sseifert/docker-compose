@@ -4,7 +4,7 @@ services:
 ## MusicBrainz Picard – Music Management
   picard:
     container_name: picard
-    image: mikenye/picard
+    image: mikenye/picard:latest
     restart: always
     networks:
       - traefik_proxy
@@ -12,14 +12,14 @@ services:
 #      - "5800:5800"
     volumes:
       - $USERDIR/docker/picard:/config
-      - $USERDIR/dwnloads/:/dwnloads
+      - $USERDIR/dwnloads/:/downloads
       - /mnt/storage/music:/storage
     environment:
       - USER_ID=$PUID
       - GROUP_ID=$PGID
       - TZ=$TZ
       - UMASK=022
-      - DISPLAY_WIDTH=1280
+      - DISPLAY_WIDTH=1600
       - DISPLAY_HEIGHT=768
     labels:
       - "traefik.enable=true"

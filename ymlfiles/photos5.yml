@@ -18,7 +18,7 @@ services:
 
   chevereto:
     container_name: chevereto
-    image: nmtan/chevereto
+    image: nmtan/chevereto:latest
     restart: always
     networks:
       - traefik_proxy

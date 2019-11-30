@@ -10,7 +10,7 @@ services:
   oauth:
     container_name: oauth
 #    image: thomseddon/traefik-forward-auth # thomseddeon's image doesnt support OIDC_ISSUER yet
-    image: funkypenguin/traefik-forward-auth
+    image: funkypenguin/traefik-forward-auth:latest
     restart: always
     networks:
       - traefik_proxy
@@ -71,7 +71,7 @@ services:
 
   keycloak:
     container_name: keycloak
-    image: jboss/keycloak
+    image: jboss/keycloak:latest
     restart: always
     depends_on:
       - traefik

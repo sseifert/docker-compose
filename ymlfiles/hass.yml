@@ -2,9 +2,13 @@ version: "3.7"
 services:
 
 ## Home Assistant - Home Automation Hub
+
+  ## Check config with:
+    # docker exec -it hass hass --script check_config -c /config
+
   hass:
     container_name: hass
-    image: homeassistant/home-assistant
+    image: homeassistant/home-assistant:latest
     restart: always
     privileged: true
     networks:

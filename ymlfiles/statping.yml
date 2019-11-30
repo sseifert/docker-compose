@@ -4,7 +4,7 @@ services:
 ## StatPing - Status Page & Monitoring Server
   statping:
     container_name: statping
-    image: hunterlong/statping
+    image: hunterlong/statping:latest
     restart: unless-stopped
     depends_on:
       - postgres

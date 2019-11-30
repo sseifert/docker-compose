@@ -5,7 +5,7 @@ services:
 
   resilio:
     container_name: resilio
-    image: kudaba/rpi-resilio
+    image: kudaba/rpi-resilio:latest
     restart: always
     networks:
       - traefik_proxy

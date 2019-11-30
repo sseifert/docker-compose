@@ -7,7 +7,8 @@ services:
     image: linuxserver/sonarr:latest
     restart: unless-stopped
     networks:
-      - traefik_proxy
+      traefik_proxy:
+        ipv4_address: 192.168.50.246
 #    ports:
 #      - "8989:8989"
     volumes:

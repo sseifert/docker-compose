@@ -4,7 +4,7 @@ services:
 ## Handbrake - Video Converter
   handbrake:
     container_name: handbrake
-    image: jlesage/handbrake
+    image: jlesage/handbrake:latest
     restart: always
     networks:
       - traefik_proxy
@@ -21,7 +21,7 @@ services:
       - GROUP_ID=$PGID
       - TZ=$TZ
       - UMASK=002
-      - DISPLAY_WIDTH=1280
+      - DISPLAY_WIDTH=1600
       - DISPLAY_HEIGHT=768
 #      - AUTOMATED_CONVERSION_PRESET=H.265 MKV 480p30
       - AUTOMATED_CONVERSION_PRESET=H.265 MKV 1080p30

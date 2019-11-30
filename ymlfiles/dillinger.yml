@@ -14,7 +14,7 @@ services:
 
   dillinger:
     container_name: dillinger
-    image: linuxserver/dillinger
+    image: linuxserver/dillinger:latest
     restart: always
     networks:
       - traefik_proxy

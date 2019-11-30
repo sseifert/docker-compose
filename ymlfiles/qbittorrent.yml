@@ -9,7 +9,7 @@ services:
 
   qbittorrent:
     container_name: qbittorrent
-    image: markusmcnugen/qbittorrentvpn
+    image: markusmcnugen/qbittorrentvpn:latest
     restart: always
     networks:
       traefik_proxy:
@@ -23,9 +23,9 @@ services:
 #      - "8999:8999"
 #      - "8999:8999/udp"
     volumes:
+      - $USERDIR/docker/qbittorrent:/config
       - $USERDIR/dwnloads:/downloads
       - /mnt/storage:/mnt/storage
-      - $USERDIR/docker/qbittorrent:/config
     environment:
       - PUID=$PUID
       - PGID=$PGID

@@ -24,7 +24,7 @@ services:
 
   pgadmin:
     container_name: pgadmin
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     restart: always
     depends_on:
       - postgres
