@@ -8,7 +8,7 @@ services:
 ## Traefik - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:montdor
+    image: traefik:cantal
     restart: always
     command: # CLI arguments
       - --global.checkNewVersion=true
@@ -30,6 +30,7 @@ services:
       - --accessLog.bufferingSize=100 # Configuring a buffer of 100 lines
       - --accessLog.filters.statusCodes=400-499
       - --providers.docker=true
+      - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --providers.docker.defaultrule=Host(`{{ index .Labels "com.docker.compose.service" }}.$DOMAINNAME`)
       - --providers.docker.exposedByDefault=false
       - --providers.docker.network=traefik_proxy
@@ -43,7 +44,7 @@ services:
       - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.provider=cloudflare
     networks:
       traefik_proxy:
-        ipv4_address: 192.168.50.254
+        ipv4_address: 192.168.50.154
     ports:
       # https://www.reddit.com/r/docker/comments/c1wrep/traefik_reverse_proxy_question_docker_overlay/
       - target: 80
@@ -75,7 +76,7 @@ services:
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       # HTTP Routers
       - "traefik.http.routers.traefik-rtr.entrypoints=https"
-#      - "traefik.http.routers.traefik-rtr.rule=Host(`traefik.$DOMAINNAME`)"
+      - "traefik.http.routers.traefik-rtr.rule=Host(`traefik.$DOMAINNAME`)"
       - "traefik.http.routers.traefik-rtr.tls=true"
       - "traefik.http.routers.traefik-rtr.tls.certresolver=dns-cloudflare"
       - "traefik.http.routers.traefik-rtr.tls.domains[0].main=$DOMAINNAME"

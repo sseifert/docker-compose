@@ -12,8 +12,10 @@ services:
 #    ports:
 #      - "6080:6080"
     volumes:
-      - soulseekdata:/root
-      - /mnt/storage/music/to_be_tagged:/root/Soulseek Downloads
+      - soulseek_data:/root/.SoulseekQt
+      - soulseek_logs:/root/Soulseek Chat Logs
+      - $USERDIR/dwnloads/completed:/root/Soulseek Downloads/complete
+      - $USERDIR/dwnloads/temp:/root/Soulseek Downloads/downloading
       - /mnt/storage/music/music:/Music
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -55,7 +57,8 @@ services:
       - "traefik.http.services.soulseek-svc.loadbalancer.server.port=6080"
 
 volumes:
-  soulseekdata:
+  soulseek_data:
+  soulseek_logs:
 
 networks:
   traefik_proxy:

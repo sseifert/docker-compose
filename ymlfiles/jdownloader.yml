@@ -3,8 +3,16 @@ services:
 
 ## JDownloader – Download Manager
 
-  ## Dark Theme!
-    # https://github.com/Vinylwalk3r/Jdownloader-2-Dark-Theme
+  ## Disable ads, banners, and other junk:
+    # https://www.ps2-home.com/forum/viewtopic.php?t=512
+    # Go to Advanced Settings and search for these keywords:
+      # premium alert
+      # special deals
+      # banner
+      # Donate (displays the Contribute tab)
+
+  ## Themes available
+    # Search Advanced Settings for "look and feel"
 
   jdownloader:
     container_name: jdownloader
@@ -18,14 +26,14 @@ services:
 #      - "3129:3129"
     volumes:
       - $USERDIR/docker/jdownloader:/config
-      - $USERDIR/dwnloads/:/downloads
+      - $USERDIR/dwnloads/:/downloads # by default this folder is called ":/output"
       - /mnt/storage/music/music:/music
 #      - /mnt/storage:/mnt/storage
     environment:
       - USER_ID=$PUID
       - GROUP_ID=$PGID
       - TZ=$TZ
-      - UMASK_SET=002
+      - UMASK_SET=022
       - DISPLAY_WIDTH=1600
       - DISPLAY_HEIGHT=768
       - KEEP_APP_RUNNING=1

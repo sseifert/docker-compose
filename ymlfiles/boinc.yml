@@ -9,21 +9,23 @@ services:
     # boinccmd --help
     # exit
 
-  ## Link account to BOINCStats:
+  ## Attach to BOINCStats Account Manager (BAM):
     # Create an account at https://bam.boincstats.com/
-    # docker exec -it boinc boinccmd --join_acct_mgr https://bam.boincstats.com <username> <password>
+    # docker exec -it boinc boinccmd --acct_mgr attach https://bam.boincstats.com <username> <password>
   ## Check if account is connected:
     # docker exec -it boinc boinccmd --acct_mgr info
 
   ## Join a project:
     # Create an account at https://www.worldcommunitygrid.org/
     # docker exec -it boinc boinccmd --lookup_account http://www.worldcommunitygrid.org <your_email> <your_password>
-    # docker exec -it boinc boinccmd --project_attach http://www.worldcommunitygrid.org <authenticator key>
+    # docker exec -it boinc boinccmd --project_attach http://www.worldcommunitygrid.org <account key>
   ## Or atach directly to project:
-    # docker exec -it boinc boinccmd --project_attach <project URL> <authenticator key>
+    # docker exec -it boinc boinccmd --project_attach <project URL> <account key>
 
   ## Check tasks using command line:
     # docker exec -it boinc boinccmd --get_tasks
+  ## I only like to see this info:
+    # docker exec -it boinc boinccmd --get_tasks | egrep '\-\-\-|WU name|task_state|fraction'
 
   boinc:
     container_name: boinc

@@ -13,7 +13,8 @@ services:
     image: linuxserver/unifi-controller:latest
     restart: always
     networks:
-      - traefik_proxy
+      traefik_proxy:
+        ipv4_address: 192.168.50.239
     ports:
       - "3478:3478/udp"
       - "10001:10001/udp"

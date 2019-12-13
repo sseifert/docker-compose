@@ -1,11 +1,17 @@
 version: "3.7"
 services:
 
-## Fail2ban - Network security against attacks
-  # iptables -L <jail> --line-numbers
-  # fail2ban-client set <jail> unbanip <ip to unban>
-  # fail2ban-regex '<log output>' 'regex'
-  # Other commands: https://www.fail2ban.org/wiki/index.php/Commands
+  ## Fail2ban - Network security against attacks
+
+  ## Some fail2ban commands:
+    # iptables -L <jail> --line-numbers
+    # fail2ban-client set <jail> unbanip <ip to unban>
+    # fail2ban-regex '<log output>' 'regex'
+    # Other commands: https://www.fail2ban.org/wiki/index.php/Commands
+
+## Check status of ssh jail:
+  # sudo fail2ban-client status sshd
+
   fail2ban:
     container_name: fail2ban
     image: crazymax/fail2ban:latest
