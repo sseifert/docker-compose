@@ -10,7 +10,7 @@ services:
 
   unifi:
     container_name: unifi
-    image: linuxserver/unifi-controller:latest
+    image: linuxserver/unifi-controller:arm32v7-latest
     restart: unless-stopped
     network_mode: host
 #    networks:

@@ -25,7 +25,7 @@ services:
   ## Check tasks using command line:
     # docker exec -it boinc boinccmd --get_tasks
   ## I only like to see this info:
-    # docker exec -it boinc boinccmd --get_tasks | egrep '\-\-\-|WU name|task_state|fraction'
+    # docker exec -it boinc boinccmd --get_tasks | egrep '\-\-\-|WU name|project URL|task_state|fraction'
 
   boinc:
     container_name: boinc
