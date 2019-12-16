@@ -56,7 +56,7 @@ services:
       - MYSQL_USER=guacamole
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
     volumes:
-#      - guacamole_db_init:/opt/guacamole/mysql/schema # Uncomment to initialize MariaDB - need to use container below in the same compose file
+#      - guacamole_db_init:/opt/guacamole/mysql/schema # Uncomment to initialize MariaDB. Need to use container below in the same compose file
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     labels:

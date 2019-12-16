@@ -14,7 +14,7 @@ services:
   ## You need to add a theme otherwise YOURLS will not work. I'm using ininity-squared. Extract the contents of the latest release zip folder into the yourls folder mounted below
     # https://github.com/tomslominski/infinity-squared
 
-  ## I chose these plugins:
+  ## I use these plugins:
     ## https://github.com/YOURLS/awesome-yourls
     # Admin NoReCAPTCHA
     # Allow Hyphens in Short URLs
