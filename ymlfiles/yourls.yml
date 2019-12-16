@@ -76,7 +76,7 @@ services:
 #      - "traefik.http.middlewares.dillinger-headers.headers.customframeoptionsvalue=SAMEORIGIN" # This option overrides FrameDeny
       - "traefik.http.middlewares.yourls-headers.headers.contenttypenosniff=true"
       - "traefik.http.middlewares.yourls-headers.headers.browserxssfilter=true"
-      - "traefik.http.middlewares.yourls-headers.headers.contentsecuritypolicy=frame-ancestors 'none'; object-src 'none'; base-uri 'none';"
+      - "traefik.http.middlewares.yourls-headers.headers.contentsecuritypolicy=frame-ancestors 'none'; object-src 'none'; script-src 'none'; base-uri 'none';"
       - "traefik.http.middlewares.yourls-headers.headers.referrerpolicy=same-origin"
       - "traefik.http.middlewares.yourls-headers.headers.featurepolicy=camera 'none'; geolocation 'none'; microphone 'none'; payment 'none'; usb 'none'; vr 'none';"
       - "traefik.http.middlewares.yourls-headers.headers.customresponseheaders.X-Robots-Tag=none,noarchive,nosnippet,notranslate,noimageindex,"

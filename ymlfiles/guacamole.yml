@@ -63,7 +63,7 @@ services:
       - "traefik.enable=true"
       ## HTTP Routers
       - "traefik.http.routers.guacamole-rtr.entrypoints=https"
-      - "traefik.http.routers.bitwardenAdmin-rtr.rule=Host(`guacamole.$DOMAINNAME`)"
+      - "traefik.http.routers.guacamole-rtr.rule=Host(`guacamole.$DOMAINNAME`)"
       - "traefik.http.routers.guacamole-rtr.tls=true"
       - "traefik.http.routers.guacamole-rtr.tls.certresolver=dns-cloudflare"
       ## Middlewares
