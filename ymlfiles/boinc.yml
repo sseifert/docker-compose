@@ -16,16 +16,28 @@ services:
     # docker exec -it boinc boinccmd --acct_mgr info
 
   ## Join a project:
-    # Create an account at https://www.worldcommunitygrid.org/
+    # Create an account at https://www.worldcommunitygrid.org/ or using my recruitment link: https://join.worldcommunitygrid.org?recruiterId=1093972
     # docker exec -it boinc boinccmd --lookup_account http://www.worldcommunitygrid.org <your_email> <your_password>
     # docker exec -it boinc boinccmd --project_attach http://www.worldcommunitygrid.org <account key>
   ## Or atach directly to project:
     # docker exec -it boinc boinccmd --project_attach <project URL> <account key>
 
-  ## Check tasks using command line:
+  ## Check task status using command line:
     # docker exec -it boinc boinccmd --get_tasks
   ## I only like to see this info:
     # docker exec -it boinc boinccmd --get_tasks | egrep '\-\-\-|WU name|project URL|task_state|fraction'
+
+  ## My Project URLs:
+    # World Community Grid - http://www.worldcommunitygrid.org
+    # Climate Prediction - https://climateprediction.net
+    # Rosetta@Home - http://boinc.bakerlab.org/rosetta/
+  ## Other Project URLs:
+    # SETI@Home - http://setiathome.berkeley.edu
+    # Einstein@Home - https://einsteinathome.org
+    # Cosmology@Home - http://www.cosmologyathome.org
+
+  ## Detach from projcet:
+    # docker exec -it boinc boinccmd --project <project URL> detach_when_done
 
   boinc:
     container_name: boinc
@@ -41,36 +53,6 @@ services:
       - TZ=$TZ
       - BOINC_GUI_RPC_PASSWORD=$MY_PASSWORD
       - BOINC_CMD_LINE_OPTIONS=--allow_remote_gui_rpc
-
-## BOINC Web Manager
-
-  ## Add your host:
-    # name: boinc
-    # IpAddress: boinc
-    # enter <password>
-
-  boinc-web:
-    container_name: boinc-web
-    image: adamradocz/boinc-manager-web:latest
-    restart: always
-    networks:
-      - traefik_proxy
-#    ports:
-#     - "3380:80"
-    volumes:
-      - $USERDIR/docker/boinc/web:/app/BoincManager
-    labels:
-      - "traefik.enable=true"
-      ## HTTP Routers
-      - "traefik.http.routers.boinc-rtr.entrypoints=https"
-      - "traefik.http.routers.boinc-rtr.rule=Host(`boinc.$DOMAINNAME`)"
-      - "traefik.http.routers.boinc-rtr.tls=true"
-      - "traefik.http.routers.boinc-rtr.tls.certresolver=dns-cloudflare"
-      ## Middlewares
-      - "traefik.http.routers.boinc-rtr.middlewares=secure-chain@file"
-      ## HTTP Services
-      - "traefik.http.routers.boinc-rtr.service=boinc-svc"
-      - "traefik.http.services.boinc-svc.loadbalancer.server.port=80"
 
 networks:
   traefik_proxy:

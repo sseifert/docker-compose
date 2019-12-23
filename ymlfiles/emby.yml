@@ -29,6 +29,7 @@ services:
       ## HTTP Routers
       - "traefik.http.routers.emby-rtr.entrypoints=https"
       - "traefik.http.routers.emby-rtr.rule=Host(`emby.$DOMAINNAME`)"
+      - "traefik.http.routers.emby-rtr.priority=4"
       - "traefik.http.routers.emby-rtr.tls=true"
       - "traefik.http.routers.emby-rtr.tls.certresolver=dns-cloudflare"
       ## Middlewares

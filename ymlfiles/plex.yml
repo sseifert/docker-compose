@@ -54,8 +54,8 @@ services:
       - "traefik.http.middlewares.plex-headers.headers.stsincludesubdomains=true"
       - "traefik.http.middlewares.plex-headers.headers.stspreload=true"
       - "traefik.http.middlewares.plex-headers.headers.forcestsheader=true"
-      - "traefik.http.middlewares.plex-headers.headers.framedeny=true"
-#      - "traefik.http.middlewares.plex-headers.headers.customframeoptionsvalue=SAMEORIGIN" # This option overrides FrameDeny
+#      - "traefik.http.middlewares.plex-headers.headers.framedeny=true"
+      - "traefik.http.middlewares.plex-headers.headers.customframeoptionsvalue=allow-from https:$DOMAINNAME" # This option overrides FrameDeny
       - "traefik.http.middlewares.plex-headers.headers.contenttypenosniff=true"
       - "traefik.http.middlewares.plex-headers.headers.browserxssfilter=true"
 #      - "traefik.http.middlewares.plex-headers.headers.contentsecuritypolicy=frame-ancestors 'none'; object-src 'none'; base-uri 'none';"

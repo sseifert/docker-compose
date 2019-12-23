@@ -27,7 +27,7 @@ services:
 
   boinc:
     container_name: boinc
-    image: boinc/client:arm32v7:latest
+    image: boinc/client:arm32v7
     restart: always
     network_mode: host
 #    ports:

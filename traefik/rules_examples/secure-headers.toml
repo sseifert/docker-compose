@@ -16,10 +16,11 @@
     stsIncludeSubdomains = true
     stsPreload = true
     forceSTSHeader = true
-    frameDeny = true
+#    frameDeny = true
+    customFrameOptionsValue = "allow-from https:<your domain>" # This option overrides frameDeny
     contentTypeNosniff = true
     browserXssFilter = true
-#    contentSecurityPolicy = "default-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none';"
+#    contentSecurityPolicy = "default-src 'self'; frame-ancestors 'none'; script-src 'none'; object-src 'none'; base-uri 'none';"
     referrerPolicy = "same-origin"
     featurePolicy = "camera 'none'; geolocation 'none'; microphone 'none'; payment 'none'; usb 'none'; vr 'none';"
     [http.middlewares.secure-headers.headers.customResponseHeaders]

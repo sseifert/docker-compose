@@ -39,7 +39,7 @@ services:
       - "traefik.http.middlewares.logarr-headers.headers.stspreload=true"
       - "traefik.http.middlewares.logarr-headers.headers.forcestsheader=true"
 #      - "traefik.http.middlewares.logarr-headers.headers.framedeny=true"
-      - "traefik.http.middlewares.dillinger-headers.headers.customframeoptionsvalue=SAMEORIGIN" # This option overrides FrameDeny
+      - "traefik.http.middlewares.logarr-headers.headers.customframeoptionsvalue=SAMEORIGIN" # This option overrides FrameDeny
       - "traefik.http.middlewares.logarr-headers.headers.contenttypenosniff=true"
       - "traefik.http.middlewares.logarr-headers.headers.browserxssfilter=true"
 #      - "traefik.http.middlewares.logarr-headers.headers.contentsecuritypolicy=frame-ancestors 'none'; object-src 'none'; base-uri 'none';"
