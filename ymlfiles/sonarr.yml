@@ -4,7 +4,7 @@ services:
 ## Sonarr – TV Show Download and Management
   sonarr:
     container_name: sonarr
-    image: linuxserver/sonarr:latest
+    image: linuxserver/sonarr:preview #latest
     restart: unless-stopped
     networks:
       traefik_proxy:
