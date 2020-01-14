@@ -1,54 +1,39 @@
 version: "3.7"
 services:
 
-## Logarr - WebUI for Docker Logs
-  logarr:
-    container_name: logarr
-    image: monitorr/logarr-alpha:latest
+## Dozzle - Docker Real-Time Log Viewer
+  # Filter options: https://docs.docker.com/engine/reference/commandline/ps/#filtering
+
+  dozzle:
+    container_name: logs
+    image: amir20/dozzle:latest
     restart: always
     networks:
       - traefik_proxy
 #    ports:
-#      - "80:80"
+#      - "8080:8080"
     volumes:
-      - $USERDIR/docker/logarr:/config
-      - /var/log/docker:/var/log/docker:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     environment:
-      - TZ=$TZ
+      DOZZLE_LEVEL: info
+      DOZZLE_TAILSIZE: 300
+      DOZZLE_FILTER: "status=running"
+#      DOZZLE_FILTER: "label=log_me" # limits logs displayed to containers with this label
     labels:
+#      - log_me
       - "traefik.enable=true"
       ## HTTP Routers
-      - "traefik.http.routers.logarr-rtr.entrypoints=https"
-      - "traefik.http.routers.logarr-rtr.rule=Host(`logs.$DOMAINNAME`)"
-      - "traefik.http.routers.logarr-rtr.tls=true"
-      - "traefik.http.routers.logarr-rtr.tls.certresolver=dns-cloudflare"
+      - "traefik.http.routers.dozzle-rtr.entrypoints=https"
+      - "traefik.http.routers.dozzle-rtr.rule=Host(`logs.$DOMAINNAME`)"
+      - "traefik.http.routers.dozzle-rtr.tls=true"
+      - "traefik.http.routers.dozzle-rtr.tls.certresolver=dns-cloudflare"
       ## Middlewares
-      - "traefik.http.routers.logarr-rtr.middlewares=logarr-headers"
-      - "traefik.http.middlewares.logarr-headers.headers.accesscontrolallowmethods=GET, OPTIONS, PUT"
-#      - "traefik.http.middlewares.logarr-headers.headers.accesscontrolalloworigin=https://$DOMAINNAME"
-      - "traefik.http.middlewares.logarr-headers.headers.accesscontrolmaxage=100"
-      - "traefik.http.middlewares.logarr-headers.headers.addvaryheader=true"
-#      - "traefik.http.middlewares.logarr-headers.headers.allowedhosts=logarr.$DOMAINNAME"
-      - "traefik.http.middlewares.logarr-headers.headers.hostsproxyheaders=X-Forwarded-Host"
-      - "traefik.http.middlewares.logarr-headers.headers.sslredirect=true"
-#      - "traefik.http.middlewares.logarr-headers.headers.sslhost=logarr.$DOMAINNAME"
-#      - "traefik.http.middlewares.logarr-headers.headers.sslforcehost=true"
-      - "traefik.http.middlewares.logarr-headers.headers.sslproxyheaders.X-Forwarded-Proto=https"
-      - "traefik.http.middlewares.logarr-headers.headers.stsseconds=63072000"
-      - "traefik.http.middlewares.logarr-headers.headers.stsincludesubdomains=true"
-      - "traefik.http.middlewares.logarr-headers.headers.stspreload=true"
-      - "traefik.http.middlewares.logarr-headers.headers.forcestsheader=true"
-#      - "traefik.http.middlewares.logarr-headers.headers.framedeny=true"
-      - "traefik.http.middlewares.logarr-headers.headers.customframeoptionsvalue=SAMEORIGIN" # This option overrides FrameDeny
-      - "traefik.http.middlewares.logarr-headers.headers.contenttypenosniff=true"
-      - "traefik.http.middlewares.logarr-headers.headers.browserxssfilter=true"
-#      - "traefik.http.middlewares.logarr-headers.headers.contentsecuritypolicy=frame-ancestors 'none'; object-src 'none'; base-uri 'none';"
-      - "traefik.http.middlewares.logarr-headers.headers.referrerpolicy=same-origin"
-      - "traefik.http.middlewares.logarr-headers.headers.featurepolicy=camera 'none'; geolocation 'none'; microphone 'none'; payment 'none'; usb 'none'; vr 'none';"
-      - "traefik.http.middlewares.logarr-headers.headers.customresponseheaders.X-Robots-Tag=none,noarchive,nosnippet,notranslate,noimageindex,"
+      - "traefik.http.routers.dozzle-rtr.middlewares=secure-chain@file"
       ## HTTP Services
-      - "traefik.http.routers.logarr-rtr.service=logarr-svc"
-      - "traefik.http.services.logarr-svc.loadbalancer.server.port=80"
+      - "traefik.http.routers.dozzle-rtr.service=dozzle-svc"
+      - "traefik.http.services.dozzle-svc.loadbalancer.server.port=8080"
 
 networks:
   traefik_proxy:

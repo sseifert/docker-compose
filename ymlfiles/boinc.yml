@@ -4,6 +4,12 @@ services:
 ## BOINC Client - Berkeley Open Infrastructure for Network Computing
   # https://boinc.berkeley.edu/projects.php
 
+  ## Use Docker or install on host: sudo apt install boinc-client
+
+  ## Use a Terminal UI (very useful!)
+    # sudo apt install boinctui
+    # boinctui
+
   ## Enter boinccmd commands via shell:
     # docker exec -it boinc bash
     # boinccmd --help
@@ -29,12 +35,15 @@ services:
 
   ## My Project URLs:
     # World Community Grid - http://www.worldcommunitygrid.org
-    # Climate Prediction - https://climateprediction.net
+    # Climate Prediction - https://climateprediction.net  ## never had any tasks :-(
     # Rosetta@Home - http://boinc.bakerlab.org/rosetta/
-  ## Other Project URLs:
     # SETI@Home - http://setiathome.berkeley.edu
-    # Einstein@Home - https://einsteinathome.org
     # Cosmology@Home - http://www.cosmologyathome.org
+
+  ## Pi Pojects:
+    # Einstein@Home - http://einstein.phys.uwm.edu/
+    # SETI@Home - http://setiathome.berkeley.edu
+    # Universe@Home - https://universeathome.pl/universe/
 
   ## Detach from projcet:
     # docker exec -it boinc boinccmd --project <project URL> detach_when_done

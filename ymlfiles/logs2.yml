@@ -1,64 +1,54 @@
 version: "3.7"
 services:
 
-## Logio - UI for Docker Logs
-  logio:
-    container_name: logio
-    image: quay.io/blacklabelops/logio:latest
+## Logarr - WebUI for Docker Logs
+  logarr:
+    container_name: logarr
+    image: monitorr/logarr-alpha:latest
     restart: always
     networks:
       - traefik_proxy
 #    ports:
-#     - "28778:28778"
+#      - "80:80"
     volumes:
-      - /opt/server
-#    environment:
-#      - LOGIO_ADMIN_USER=
-#      - LOGIO_ADMIN_PASSWORD=
+      - $USERDIR/docker/logarr:/config
+      - /var/log/docker:/var/log/docker:ro
+    environment:
+      - TZ=$TZ
     labels:
       - "traefik.enable=true"
       ## HTTP Routers
-      - "traefik.http.routers.logio-rtr.entrypoints=https"
-      - "traefik.http.routers.logio-rtr.rule=Host(`logs.$DOMAINNAME`)"
-      - "traefik.http.routers.logio-rtr.tls=true"
-      - "traefik.http.routers.logio-rtr.tls.certresolver=dns-cloudflare"
+      - "traefik.http.routers.logarr-rtr.entrypoints=https"
+      - "traefik.http.routers.logarr-rtr.rule=Host(`logs.$DOMAINNAME`)"
+      - "traefik.http.routers.logarr-rtr.tls=true"
+      - "traefik.http.routers.logarr-rtr.tls.certresolver=dns-cloudflare"
       ## Middlewares
-      - "traefik.http.routers.logio-rtr.middlewares=secure-chain@file"
+      - "traefik.http.routers.logarr-rtr.middlewares=logarr-headers"
+      - "traefik.http.middlewares.logarr-headers.headers.accesscontrolallowmethods=GET, OPTIONS, PUT"
+#      - "traefik.http.middlewares.logarr-headers.headers.accesscontrolalloworigin=https://$DOMAINNAME"
+      - "traefik.http.middlewares.logarr-headers.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.logarr-headers.headers.addvaryheader=true"
+#      - "traefik.http.middlewares.logarr-headers.headers.allowedhosts=logarr.$DOMAINNAME"
+      - "traefik.http.middlewares.logarr-headers.headers.hostsproxyheaders=X-Forwarded-Host"
+      - "traefik.http.middlewares.logarr-headers.headers.sslredirect=true"
+#      - "traefik.http.middlewares.logarr-headers.headers.sslhost=logarr.$DOMAINNAME"
+#      - "traefik.http.middlewares.logarr-headers.headers.sslforcehost=true"
+      - "traefik.http.middlewares.logarr-headers.headers.sslproxyheaders.X-Forwarded-Proto=https"
+      - "traefik.http.middlewares.logarr-headers.headers.stsseconds=63072000"
+      - "traefik.http.middlewares.logarr-headers.headers.stsincludesubdomains=true"
+      - "traefik.http.middlewares.logarr-headers.headers.stspreload=true"
+      - "traefik.http.middlewares.logarr-headers.headers.forcestsheader=true"
+#      - "traefik.http.middlewares.logarr-headers.headers.framedeny=true"
+      - "traefik.http.middlewares.logarr-headers.headers.customframeoptionsvalue=SAMEORIGIN" # This option overrides FrameDeny
+      - "traefik.http.middlewares.logarr-headers.headers.contenttypenosniff=true"
+      - "traefik.http.middlewares.logarr-headers.headers.browserxssfilter=true"
+#      - "traefik.http.middlewares.logarr-headers.headers.contentsecuritypolicy=frame-ancestors 'none'; object-src 'none'; base-uri 'none';"
+      - "traefik.http.middlewares.logarr-headers.headers.referrerpolicy=same-origin"
+      - "traefik.http.middlewares.logarr-headers.headers.featurepolicy=camera 'none'; geolocation 'none'; microphone 'none'; payment 'none'; usb 'none'; vr 'none';"
+      - "traefik.http.middlewares.logarr-headers.headers.customresponseheaders.X-Robots-Tag=none,noarchive,nosnippet,notranslate,noimageindex,"
       ## HTTP Services
-      - "traefik.http.routers.logio-rtr.service=logio-svc"
-      - "traefik.http.services.logio-svc.loadbalancer.server.port=28778"
-
-## Harvester for Logio
-  harvester:
-    container_name: harvester
-    user: root
-    image: quay.io/blacklabelops/logio:latest
-    restart: always
-    command: harvester
-    networks:
-      - traefik_proxy
-#    ports:
-#     - "28777:28777"
-    volumes:
-      - /var/lib/docker:/var/lib/docker:ro
-      - /var/log/docker:/var/log/docker:ro
-    environment:
-#      - DELAYED_START=10
-      - LOGIO_HARVESTER1STREAMNAME=DockerLogs
-      - LOGIO_HARVESTER1LOGSTREAMS=/var/lib/docker
-      - LOGIO_HARVESTER1FILEPATTERN=*.log
-      - LOGIO_HARVESTER2STREAMNAME=Traefik
-      - LOGIO_HARVESTER2LOGSTREAMS=/var/log/docker
-      - LOGIO_HARVESTER2FILEPATTERN=traefik.log
-      - LOGIO_HARVESTER3STREAMNAME=Bitwarden
-      - LOGIO_HARVESTER3LOGSTREAMS=/var/log/docker
-      - LOGIO_HARVESTER3FILEPATTERN=bitwarden.log
-      - LOGIO_HARVESTER4STREAMNAME=Pihole
-      - LOGIO_HARVESTER4LOGSTREAMS=/var/log/docker
-      - LOGIO_HARVESTER4FILEPATTERN=pihole.log
-
-#      - LOGS_DIRECTORIES=/var/lib/docker
-#      - LOG_FILE_PATTERN=*.log
+      - "traefik.http.routers.logarr-rtr.service=logarr-svc"
+      - "traefik.http.services.logarr-svc.loadbalancer.server.port=80"
 
 networks:
   traefik_proxy:
