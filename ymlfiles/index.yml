@@ -13,6 +13,7 @@ services:
     volumes:
       - $USERDIR:/var/www/html/home:ro
       - /mnt/storage:/var/www/html/storage:ro
+      - $USERDIR/tmpfldr:/tmpfldr
       - /tmp/index:/tmp # for IFM_TMP_DIR
 #      - $TESTDIR:/var/www/html/files_available_here:ro # Location you want to index
     environment:

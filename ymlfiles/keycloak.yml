@@ -1,47 +1,42 @@
-# https://www.keycloak.org/documentation.html
-# https://www.keycloak.org/docs/latest/getting_started/index.html
-# https://hub.docker.com/_/postgres
-# https://hub.docker.com/r/jboss/keycloak/
-
 version: "3.7"
 services:
 
-## Traefik Forward Auth - Auth Gate for SSO
-  oauth:
-    container_name: oauth
-#    image: thomseddon/traefik-forward-auth # thomseddeon's image doesnt support OIDC_ISSUER yet
-    image: funkypenguin/traefik-forward-auth:latest
-    restart: always
-    networks:
-      - traefik_proxy
-    depends_on:
-      - keycloak
-    environment:
-      - CLIENT_ID=$AUTH_CLIENT_ID
-      - CLIENT_SECRET=$AUTH_CLIENT_SECRET
-      ## This is based on using the Master realm. Create a new client, this will go into your CLIENT_ID, CLIENT_SECRET details.
-      - OIDC_ISSUER=https://keycloak.$DOMAINNAME/auth/realms/master
-      - SECRET=$AUTH_SECRET
-      - AUTH_HOST=oauth.$DOMAINNAME
-      - COOKIE_DOMAIN=$DOMAINNAME
-      - COOKIE_SECURE=true
-#      - URL_PATH=_oauth
-#      - WHITELIST=$MY_EMAIL
-#      - LOG_LEVEL=info
-#      - LOG_FORMAT=text
-      - LIFETIME=2592000 # 30 days
-    labels:
-      - "traefik.enable=true"
-      ## HTTP Routers
-      - "traefik.http.routers.oauth-rtr.entrypoints=https"
-      - "traefik.http.routers.oauth-rtr.rule=Host(`oauth.$DOMAINNAME`)"
-      - "traefik.http.routers.oauth-rtr.tls=true"
-      - "traefik.http.routers.oauth-rtr.tls.certresolver=dns-cloudflare"
-      ## Middlewares
-      - "traefik.http.routers.oauth-rtr.middlewares=secure-chain@file,rate-limit@file"
-      ## HTTP Services
-      - "traefik.http.routers.oauth-rtr.service=oauth-svc"
-      - "traefik.http.services.oauth-svc.loadbalancer.server.port=4181"
+## Forward Authentication for Traefik
+#  oauth:
+#    container_name: oauth
+##    image: thomseddon/traefik-forward-auth # thomseddeon's image doesnt support OIDC_ISSUER yet
+#    image: funkypenguin/traefik-forward-auth:latest
+#    restart: always
+#    networks:
+#      - traefik_proxy
+#    depends_on:
+#      - keycloak
+#    environment:
+#      - CLIENT_ID=$AUTH_CLIENT_ID
+#      - CLIENT_SECRET=$AUTH_CLIENT_SECRET
+#      ## This is based on using the Master realm. Create a new client, this will go into your CLIENT_ID, CLIENT_SECRET details.
+#      - OIDC_ISSUER=https://keycloak.$DOMAINNAME/auth/realms/master
+#      - SECRET=$AUTH_SECRET
+#      - AUTH_HOST=oauth.$DOMAINNAME
+#      - COOKIE_DOMAIN=$DOMAINNAME
+#      - COOKIE_SECURE=true
+##      - URL_PATH=_oauth
+##      - WHITELIST=$MY_EMAIL
+##      - LOG_LEVEL=info
+##      - LOG_FORMAT=text
+#      - LIFETIME=2592000 # 30 days
+#    labels:
+#      - "traefik.enable=true"
+#      ## HTTP Routers
+#      - "traefik.http.routers.oauth-rtr.entrypoints=https"
+#      - "traefik.http.routers.oauth-rtr.rule=Host(`oauth.$DOMAINNAME`)"
+#      - "traefik.http.routers.oauth-rtr.tls=true"
+#      - "traefik.http.routers.oauth-rtr.tls.certresolver=dns-cloudflare"
+#      ## Middlewares
+#      - "traefik.http.routers.oauth-rtr.middlewares=secure-chain@file,rate-limit@file"
+#      ## HTTP Services
+#      - "traefik.http.routers.oauth-rtr.service=oauth-svc"
+#      - "traefik.http.services.oauth-svc.loadbalancer.server.port=4181"
 
 ## Keycloak - Private Authentication
 
@@ -73,8 +68,6 @@ services:
     container_name: keycloak
     image: jboss/keycloak:latest
     restart: always
-    depends_on:
-      - traefik
     networks:
       - traefik_proxy
       - mariadb
@@ -104,7 +97,7 @@ services:
       - "traefik.http.routers.keycloak-rtr.tls=true"
       - "traefik.http.routers.keycloak-rtr.tls.certresolver=dns-cloudflare"
       ## Middlewares
-      - "traefik.http.routers.keycloak-rtr.middlewares=secure-chain@file,rate-limit@file"
+      - "traefik.http.routers.keycloak-rtr.middlewares=secure-chain@file"
       ## HTTP Services
       - "traefik.http.routers.keycloak-rtr.service=keycloak-svc"
       - "traefik.http.services.keycloak-svc.loadbalancer.server.port=8080"

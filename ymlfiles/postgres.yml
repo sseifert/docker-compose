@@ -1,16 +1,34 @@
 version: "3.7"
 services:
 
-## Postgres - Database
+## Postgres Database
+
+  ## Still testing this out..
+
+  ## Create external postgres network:
+    # docker network create --gateway 192.168.251.1 --subnet 192.168.251.0/24 postgres
+
+  ## Suggested procedure to create new databases:
+  ## Replace <THESE VALUES>
+    # docker exec -it postgres su postgres
+    # createuser <USER>
+    # createdb <DATABASE NAME> --owner=<USER> --encoding=UTF8
+    # psql --u postgres
+    # GRANT ALL PRIVILEGES ON DATABASE <database name> TO <user>;
+    # exit
+    # exit
 
   postgres:
     container_name: postgres
-    image: postgres:11
+    image: postgres:12
     restart: always
     networks:
-      - traefik_proxy
-#    ports:
-#      - "5432:5432"
+#      traefik_proxy:
+#        ipv4_address: 192.168.50.250
+      postgres:
+        ipv4_address: 192.168.251.251
+    ports:
+      - "5432:5432"
     volumes:
       - $USERDIR/docker/postgres/postgres:/var/lib/postgresql/data
       - /etc/timezone:/etc/timezone:ro
@@ -19,28 +37,21 @@ services:
       - POSTGRES_PASSWORD=$PG_ROOT_PASSWORD
 
 ## PGAdmin - Postgres Admin Tool
-
-  ## Haven't got this one working quite yet...
-
   pgadmin:
     container_name: pgadmin
-    image: dpage/pgadmin4:latest
+    image: thajeztah/pgadmin4:latest
     restart: always
     depends_on:
       - postgres
     networks:
       - traefik_proxy
-    ports:
-      - "5050:80"
+      - postgres
+#    ports:
+#      - "5050:5050"
     volumes:
-      - $USERDIR/docker/postgres/pgadmin:/var/lib/pgadmin
+      - $USERDIR/docker/postgres/pgadmin:/pgadmin
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=$MY_EMAIL
-      - PGADMIN_DEFAULT_PASSWORD=$MY_PASSWORD
-      - PGADMIN_CONFIG_APP_NAME="CVJoint's PGAdmin"
-      - PGADMIN_CONFIG_DEFAULT_SERVER="0.0.0.0"
     labels:
       - "traefik.enable=true"
       ## HTTP Routers
@@ -52,9 +63,10 @@ services:
       - "traefik.http.routers.pgadmin-rtr.middlewares=secure-chain@file"
       ## HTTP Services
       - "traefik.http.routers.pgadmin-rtr.service=pgadmin-svc"
-      - "traefik.http.services.pgadmin-svc.loadbalancer.server.port=80"
-
+      - "traefik.http.services.pgadmin-svc.loadbalancer.server.port=5050"
 
 networks:
   traefik_proxy:
+    external: true
+  postgres:
     external: true

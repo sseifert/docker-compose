@@ -6,8 +6,6 @@ services:
     container_name: statping
     image: hunterlong/statping:latest
     restart: unless-stopped
-    depends_on:
-      - postgres
     networks:
       - traefik_proxy
       - postgres
@@ -19,7 +17,7 @@ services:
       - DB_CONN=postgres
       - DB_HOST=postgres
       - DB_USER=statping
-      - DB_PASS=$MYSQL_PASSWORD
+      - DB_PASS=$PG_PASSWORD
       - DB_DATABASE=statping
     labels:
       - "traefik.enable=true"
@@ -34,22 +32,8 @@ services:
       - "traefik.http.routers.statping-rtr.service=statping-svc"
       - "traefik.http.services.statping-svc.loadbalancer.server.port=8080"
 
-  postgres:
-    container_name: postgres
-    image: postgres
-    restart: always
-    networks:
-      - postgres
-    volumes:
-      - ${USERDIR}/docker/statping/postgres:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=$MYSQL_PASSWORD
-      - POSTGRES_USER=statping
-      - POSTGRES_DB=statping
-
-
 networks:
   traefik_proxy:
     external: true
   postgres:
-    external: false
+    external: true
