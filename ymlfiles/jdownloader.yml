@@ -27,8 +27,7 @@ services:
     volumes:
       - $USERDIR/docker/jdownloader:/config
       - $USERDIR/dwnloads/:/downloads # by default this folder is called ":/output"
-      - /mnt/storage/music/music:/music
-#      - /mnt/storage:/mnt/storage
+      - /mnt/storage:/mnt/storage
     environment:
       - USER_ID=$PUID
       - GROUP_ID=$PGID

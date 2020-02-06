@@ -4,6 +4,9 @@ services:
 ## Airsonic - Music Server
   # Login: admin / admin
 
+  ## With Mariadb (Optional, default HyperSQL works well)
+    # https://airsonic.github.io/docs/database/
+
   ## Suggested procedure to create your database:
   ## Change the <password>
     # docker exec -it mariadb mysql -uroot -p$MYSQL_ROOT_PASSWORD
@@ -25,7 +28,7 @@ services:
       - /mnt/storage/music/music:/music:ro
       - $USERDIR/docker/airsonic/podcasts:/podcasts
       - $USERDIR/docker/airsonic/playlists:/playlists
-      - $USERDIR/docker/airsonic/config:/config
+      - $USERDIR/docker/airsonic2/config:/config
 #      - $USERDIR/docker/airsonic/config:/app/airsonic/config #Used to change log level for debugging
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro

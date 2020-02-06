@@ -14,16 +14,11 @@ services:
 #    environment:
 #      - CLIENT_ID=$AUTH_CLIENT_ID
 #      - CLIENT_SECRET=$AUTH_CLIENT_SECRET
-#      ## This is based on using the Master realm. Create a new client, this will go into your CLIENT_ID, CLIENT_SECRET details.
-#      - OIDC_ISSUER=https://keycloak.$DOMAINNAME/auth/realms/master
 #      - SECRET=$AUTH_SECRET
+#      - OIDC_ISSUER=https://keycloak.$DOMAINNAME/auth/realms/cvj
 #      - AUTH_HOST=oauth.$DOMAINNAME
 #      - COOKIE_DOMAIN=$DOMAINNAME
 #      - COOKIE_SECURE=true
-##      - URL_PATH=_oauth
-##      - WHITELIST=$MY_EMAIL
-##      - LOG_LEVEL=info
-##      - LOG_FORMAT=text
 #      - LIFETIME=2592000 # 30 days
 #    labels:
 #      - "traefik.enable=true"

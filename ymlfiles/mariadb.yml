@@ -41,11 +41,6 @@ services:
   ## NOTE: Accept all options except for 'Disallow root login remotely'. Answer "no" due to docker networking.
     # docker exec -it mariadb /usr/bin/mysql_secure_installation
 
-  ## Bootstrapping a new instance (from the linuxserver/mariadb DockerHub)
-    # We support a one time run of custom sql files on init. In order to use this place *.sql files in:
-      # /config/initdb.d/
-    # This will have the same effect as setting the REMOTE_SQL environment variable. The sql will only be run on the containers first boot and setup.
-
   mariadb:
     container_name: mariadb
     image: linuxserver/mariadb:latest
@@ -100,7 +95,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     environment:
-      - BACKUP_INTERVAL=86400 #1day 604800 #1week
+      - BACKUP_INTERVAL=604800 #1week 86400 #1day
       - BACKUP_FIRSTDELAY=30 #1h
       - MYSQL_HOST=mariadb
       - MYSQL_ENV_MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD

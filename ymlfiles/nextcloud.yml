@@ -15,9 +15,6 @@ services:
     # Database name: your db name (nextcloud)
     # localhost: mariadb:3306
 
-  ## For Traefik v2 I had to add security headers to nginx > site-confs > default
-    # add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
-
   ## If you have a Redis server you can connect to it in $USERDIR/docker/nextcloud/www/nextcloud/config/config.php: (Optional)
     ## Add the following lines after " 'memcache.local' => '\\OC\\Memcache\\APCu', "
     # 'memcache.distributed' => '\\OC\\Memcache\\Redis',
