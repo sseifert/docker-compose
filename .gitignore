@@ -3,4 +3,5 @@ traefik/rules/
 ymlfiles/dbbackup*
 ymlfiles/airsonic2.yml
 backupppp/
-swarm/
+ymlswarm/
+ymlfiles/oauth-keycloak.yml

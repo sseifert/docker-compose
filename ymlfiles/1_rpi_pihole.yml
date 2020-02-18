@@ -1,10 +1,10 @@
 
-### Before starting the containers, create external network to assign IP addresses which will all be 172.20.200.x
+### Before starting the containers, create an external network to assign IP addresses:
   # docker network create --gateway 172.20.200.1 --subnet 172.20.200.0/24 pi_net
 
 ## Pihole - Ad-blocker
 
-  ## The resolv.conf file was giving me trouble in the pihole container, so here is the workaround:
+  ## The resolv.conf file was giving me trouble in the pihole container. My workaround was:
     # mkdir -p $USERDIR/docker/pihole/resolv.conf
     # vim $USERDIR/docker/pihole/resolv.conf/resolv.conf
     ## Enter both lines below and save:
@@ -36,15 +36,16 @@ services:
       - NET_ADMIN
       - NET_RAW
       - NET_BIND_SERVICE
-    networks:
-      pi_net:
-        ipv4_address: 172.20.200.101
-    ports:
-      - '53:53/tcp'
-      - '53:53/udp'
-      - '67:67/udp'
-      - '80:80/tcp'
-      - '443:443/tcp'
+    network_mode: "host"
+#    networks:
+#      pi_net:
+#        ipv4_address: 172.20.200.101
+#    ports:
+#      - '53:53/tcp'
+#      - '53:53/udp'
+#      - '67:67/udp'
+#      - '80:80/tcp'
+#      - '443:443/tcp'
     volumes:
       - ~/docker/pihole/pihole:/etc/pihole
 #      ## Add dark skin to pihole: https://github.com/thomasbnt/Night_PiHole
@@ -56,7 +57,7 @@ services:
       - ~/docker/pihole/pihole.log:/var/log/pihole.log
     environment:
       - TZ=$TZ
-      - ServerIP=192.168.1.3 # My Docker Host IP)
+      - ServerIP=192.168.1.3 # My Docker Host IP
       - IPv6=False
       - WEBPASSWORD=$PIHOLE_PASSWORD
       - DNS1=127.0.0.1
