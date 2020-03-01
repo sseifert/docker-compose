@@ -2,7 +2,6 @@ version: "3.7"
 services:
 
 ## Cloud9 - Complete Web Based IDE with Terminal Access
-
   cloud9:
     container_name: cloud9
     image: linuxserver/cloud9:latest
@@ -12,7 +11,7 @@ services:
 #    ports:
 #      - "8000:8000"
     volumes:
-      - $USERDIR/docker/traefik2/traefik/rules:/code/traefik_rules # Optionally if you want to mount up a local folder of code instead of checking out
+      - $USERDIR/docker/traefik2/traefik/rules:/code/traefik_rules
       - $USERDIR/docker/traefik2/ymlfiles:/code/ymlfiles
 #      - /var/run/docker.sock:/var/run/docker.sock # Needed if you plan to use Docker or compose commands
     environment:

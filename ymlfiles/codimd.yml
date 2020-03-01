@@ -11,9 +11,13 @@ services:
     # FLUSH PRIVILEGES;
     # exit
 
+  ## To change a users password (only works for postgres...)
+    # https://github.com/codimd/container/issues/34#issuecomment-497658805
+    # docker-compose exec codimd ./bin/manage_users --reset <mail address>
+
   codimd:
     container_name: codimd
-    image: linuxserver/codimd:latest
+    image: linuxserver/codimd:1.5.0-ls27
     restart: always
     networks:
       - traefik_proxy

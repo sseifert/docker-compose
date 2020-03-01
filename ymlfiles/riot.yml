@@ -5,7 +5,7 @@ services:
 
   ## Create default config:
     # docker run --rm --entrypoint cat bubuntux/riot-web /etc/riot-web/config.json > $USERDIR/docker/riot/config.json
-​
+
   riot:
     container_name: riot
     image: bubuntux/riot-web:latest

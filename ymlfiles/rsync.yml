@@ -14,7 +14,7 @@ services:
       - "873:873"
 #      - "22:22"
     volumes:
-      - $USERDIR/.ssh/authorized_keys:/root/.ssh/authorized_keys
+#      - $USERDIR/.ssh/authorized_keys:/root/.ssh/authorized_keys:ro
       - /mnt/storage:/data:ro
     environment:
       - USERNAME=$USERNAME

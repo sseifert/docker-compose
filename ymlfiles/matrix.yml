@@ -53,7 +53,7 @@ services:
 #      - UID=$PUID
 #      - GID=$PGID
 #      - TZ=$TZ
-      - MATRIX_DOMAIN=matrix.cvj.me
+      - MATRIX_DOMAIN=matrix.$DOMAINNAME
     labels:
       - "traefik.enable=true"
       ## HTTP Routers
